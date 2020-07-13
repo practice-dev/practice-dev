@@ -1,0 +1,82 @@
+<div class="alpha"></div>
+<div class="modal">
+  <div class="modal__content" data-test="modal">
+    <h2 class="modal__title">Confirm</h2>
+    <div class="modal__desc">
+      <span data-test="desc">Are you sure to delete "owner1"?</span>
+    </div>
+    <div class="modal__buttons">
+      <button data-test="yes-btn" class="btn btn-primary">Yes</button
+      ><button data-test="no-btn" class="btn btn-primary">No</button>
+    </div>
+  </div>
+</div>
+<div class="header">
+  <h2 class="header__title">Buggi</h2>
+  <div
+    data-test-dir="left"
+    data-test="header-username"
+    class="header__username"
+  >
+    Hello admin
+  </div>
+  <button data-test="logout-btn" class="btn btn-primary">Logout</button>
+</div>
+<div class="page users-page">
+  <div class="breadcrumb" data-test="breadcrumb" data-test-dir="top-center">
+    <a data-test="item-1" data-test-dir="top" href="/">Home</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><span data-test="item-2" data-test-dir="top">Users</span>
+  </div>
+  <a href="/users/new" data-test="add-user-btn" class="btn btn-primary"
+    >+ Add User</a
+  >
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span data-test="username-1">admin</span></td>
+        <td><span data-test="role-1">admin</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span data-test="username-2">owner1</span></td>
+        <td><span data-test="role-2">owner</span></td>
+        <td>
+          <a href="#" data-test="delete-btn-2" data-test-dir="left">Delete</a>
+          | <a href="/users/2" data-test="edit-btn-2">Edit</a>
+        </td>
+      </tr>
+      <tr>
+        <td><span data-test="username-3">owner2</span></td>
+        <td><span data-test="role-3">owner</span></td>
+        <td>
+          <a href="#" data-test="delete-btn-3" data-test-dir="left">Delete</a>
+          | <a href="/users/3" data-test="edit-btn-3">Edit</a>
+        </td>
+      </tr>
+      <tr>
+        <td><span data-test="username-4">reporter1</span></td>
+        <td><span data-test="role-4">reporter</span></td>
+        <td>
+          <a href="#" data-test="delete-btn-4" data-test-dir="left">Delete</a>
+          | <a href="/users/4" data-test="edit-btn-4">Edit</a>
+        </td>
+      </tr>
+      <tr>
+        <td><span data-test="username-5">reporter2</span></td>
+        <td><span data-test="role-5">reporter</span></td>
+        <td>
+          <a href="#" data-test="delete-btn-5" data-test-dir="left">Delete</a>
+          | <a href="/users/5" data-test="edit-btn-5">Edit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

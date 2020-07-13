@@ -1,0 +1,22 @@
+{
+  "name": "projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "sideEffects": false,
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "ts-node": "ts-node -T",
+    "deploy": "ts-node -T deploy",
+    "test": "yarn run tsc"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@pvd/tools": "*",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "rxjs": "^6.3.3"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,61 @@
+<div class="alpha"></div>
+<div class="modal">
+  <div class="modal__content" data-test="modal">
+    <h2 class="modal__title">Confirm</h2>
+    <div class="modal__desc">
+      <span data-test="desc">Are you sure to delete "blog"?</span>
+    </div>
+    <div class="modal__buttons">
+      <button data-test="yes-btn" class="btn btn-primary">Yes</button
+      ><button data-test="no-btn" class="btn btn-primary">No</button>
+    </div>
+  </div>
+</div>
+<div class="header">
+  <h2 class="header__title">Buggi</h2>
+  <div
+    data-test-dir="left"
+    data-test="header-username"
+    class="header__username"
+  >
+    Hello admin
+  </div>
+  <button data-test="logout-btn" class="btn btn-primary">Logout</button>
+</div>
+<div class="page projects-page">
+  <div class="breadcrumb" data-test="breadcrumb" data-test-dir="top-center">
+    <a data-test="bc-1" data-test-dir="top" href="/">Home</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><span data-test="bc-2" data-test-dir="top">Projects</span>
+  </div>
+  <a href="/projects/new" data-test="add-project-btn" class="btn btn-primary"
+    >+ Add Project</a
+  >
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Owner</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span data-test="name-1">blog</span></td>
+        <td><span data-test="owner-1">owner1</span></td>
+        <td>
+          <a href="#" data-test="delete-btn-1" data-test-dir="left">Delete</a>
+          | <a href="/projects/2" data-test="edit-btn-1">Edit</a>
+        </td>
+      </tr>
+      <tr>
+        <td><span data-test="name-2">new website</span></td>
+        <td><span data-test="owner-2">owner1</span></td>
+        <td>
+          <a href="#" data-test="delete-btn-2" data-test-dir="left">Delete</a>
+          | <a href="/projects/1" data-test="edit-btn-2">Edit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,40 @@
+<div class="header">
+  <h2 class="header__title">Buggi</h2>
+  <div
+    data-test-dir="left"
+    data-test="header-username"
+    class="header__username"
+  >
+    Hello admin
+  </div>
+  <button data-test="logout-btn" class="btn btn-primary">Logout</button>
+</div>
+<div class="page user-page">
+  <div class="breadcrumb" data-test="breadcrumb" data-test-dir="top-center">
+    <a data-test="item-1" data-test-dir="top" href="/">Home</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><a data-test="item-2" data-test-dir="top" href="/users">Users</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><span data-test="item-3" data-test-dir="top">Edit User</span>
+  </div>
+  <form class="form">
+    <div class="textbox" data-test="username">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" value="owner1" />
+      <div data-test="error" class="error">Username error message</div>
+    </div>
+    <div class="select" data-test="role">
+      <label for="role">Role</label>
+      <select id="role" name="role">
+        <option disabled="" value="">select</option>
+        <option value="admin">admin</option>
+        <option value="owner" selected>owner</option>
+        <option value="reporter">reporter</option>
+      </select>
+      <div data-test="error" class="error">Role error message</div>
+    </div>
+    <button class="btn btn-primary" data-test="save-btn" type="submit">
+      Save
+    </button>
+  </form>
+</div>

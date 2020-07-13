@@ -1,0 +1,76 @@
+<div class="header">
+  <h2 class="header__title">Buggi</h2>
+  <div
+    data-test-dir="left"
+    data-test="header-username"
+    class="header__username"
+  >
+    Hello admin
+  </div>
+  <button data-test="logout-btn" class="btn btn-primary">Logout</button>
+</div>
+<div class="page project-page">
+  <div class="breadcrumb" data-test="breadcrumb" data-test-dir="top-center">
+    <a data-test="bc-1" data-test-dir="top" href="/">Home</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><a data-test="bc-2" data-test-dir="top" href="/projects">Projects</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><span data-test="bc-3" data-test-dir="top">Add Project</span>
+  </div>
+  <form class="form">
+    <div class="textbox" data-test="name">
+      <label for="name">Name</label><input id="name" name="name" type="text" />
+      <div data-test="error" class="error">Name error message</div>
+    </div>
+    <div class="select" data-test="owner">
+      <label for="owner">Owner</label
+      ><select id="owner" name="owner"
+        ><option disabled="" value="" selected>select</option
+        ><option value="2">owner1</option
+        ><option value="3">owner2</option></select
+      >
+      <div data-test="error" class="error">Owner error message</div>
+    </div>
+    <div class="member-field">
+      Members
+      <ul>
+        <li>
+          <a
+            data-test="del-member-btn-1"
+            data-test-dir="left"
+            href="#"
+            title="delete"
+            >✕</a
+          >
+          <span data-test="member-1">reporter1</span>
+        </li>
+        <li>
+          <a
+            data-test="del-member-btn-2"
+            data-test-dir="left"
+            href="#"
+            title="delete"
+            >✕</a
+          >
+          <span data-test="member-2">reporter2</span>
+        </li>
+      </ul>
+      <div class="add-select-wrapper">
+        <div class="select" data-test="add-member" data-test-dir="left">
+          <select id="member" name="member">
+            <option disabled="" value="" selected>select</option>
+            <option value="">Another reporter 1</option>
+            <option value="">Another reporter 2</option>
+          </select>
+          <div data-test="error" class="error">Member error message</div>
+        </div>
+        <button class="btn btn-primary" data-test="add-member-btn">
+          Add
+        </button>
+      </div>
+    </div>
+    <button class="btn btn-primary" data-test="save-btn" type="submit">
+      Save
+    </button>
+  </form>
+</div>

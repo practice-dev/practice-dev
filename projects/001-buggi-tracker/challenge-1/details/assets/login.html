@@ -1,0 +1,19 @@
+<div class="login-page">
+  <h1>Buggi Login</h1>
+  <form class="form" onsubmit="return false">
+    <div data-test="login-error" class="alert">Authentication failed</div>
+    <div class="textbox" data-test="username">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" />
+      <div data-test="error" class="error">Username error message</div>
+    </div>
+    <div class="textbox" data-test="password">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" />
+      <div data-test="error" class="error">Password error message</div>
+    </div>
+    <button class="btn btn-primary" data-test="login-btn" type="submit">
+      Login
+    </button>
+  </form>
+</div>

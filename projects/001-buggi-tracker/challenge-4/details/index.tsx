@@ -1,0 +1,412 @@
+import {
+  Section,
+  IsolatedHtml,
+  InjectingSection,
+  SubSection,
+  HandlesTable,
+  AdditionalReq,
+  FormFields,
+} from '@pvd/ui';
+import stylesCss from './assets/styles.css';
+import projectsHtml from './assets/projects.html';
+import issuesHtml from './assets/issues.html';
+import addIssueHtml from './assets/addIssue.html';
+import issueHtml from './assets/issue.html';
+import React from 'react';
+
+export function Details() {
+  return (
+    <div>
+      <Section title="Overview">
+        Buggi tracker is a new generation tool for bug tracking and project
+        management. <br />
+        In this iteration, you must implement issue reporting functionality.
+      </Section>
+      <Section title="Use Cases">
+        <ul>
+          <li>As a user, I can report an issue.</li>
+          <li>As a user, I can see reported issues.</li>
+        </ul>
+      </Section>
+      <Section title="Features">
+        <SubSection title="Seed data">
+          Use the same seed data from the previous iteration.
+          <br />
+          There should be no projects and no issues by default.
+        </SubSection>
+        <SubSection title="Existing pages">
+          The functionality of Home and Users pages should remain the same.
+        </SubSection>
+        <SubSection title="Projects page">
+          <IsolatedHtml
+            height={330}
+            addToggle
+            css={stylesCss}
+            html={projectsHtml}
+          />
+          <HandlesTable
+            entries={[
+              {
+                handle: 'issues-i',
+                type: 'link',
+                desc: (
+                  <>
+                    Describes the number of open issues of the i-th project in
+                    the table.
+                    <br />
+                    Clicking on this link should open the Issues page. <br />
+                    The text should be equal to <code>
+                      {'<n> open issues'}
+                    </code>{' '}
+                    if <code>n</code> is plural (example: 0, 2, 5, 10), and{' '}
+                    <code>{'<n> open issue'}</code> if <code>n</code> is
+                    singular (1), where <code>{'n'}</code> is the number of
+                    issues.
+                  </>
+                ),
+              },
+            ]}
+          />
+          Represents a projects page. All existing functionality should remain
+          the same. The handles table describe only added handles.
+        </SubSection>
+        <SubSection title="Issues page">
+          <IsolatedHtml
+            height={350}
+            addToggle
+            css={stylesCss}
+            html={issuesHtml}
+          />
+          <HandlesTable
+            entries={[
+              {
+                handle: 'breadcrumb',
+                type: 'container',
+                desc: (
+                  <>
+                    Contains breadcrumb items (<code>bc-i</code>).
+                  </>
+                ),
+              },
+              {
+                handle: 'bc-1',
+                type: 'link',
+                desc: <>Redirects to the Home page.</>,
+              },
+              {
+                handle: 'bc-2',
+                type: 'link',
+                desc: <>Redirects to the Projects page.</>,
+              },
+              {
+                handle: 'bc-3',
+                type: 'text',
+                desc: (
+                  <>
+                    Displays static <code>{'<project_name> - Issues'}</code>{' '}
+                    text, where <code>project_name</code> is the name of the
+                    opened project.
+                  </>
+                ),
+              },
+              {
+                handle: 'add-issue-btn',
+                type: 'link',
+                desc: <>Redirects to the New Issue page.</>,
+              },
+              {
+                handle: 'id-i',
+                type: 'text',
+                desc: <>Displays the id of the i-th issue in the table.</>,
+              },
+              {
+                handle: 'title-i',
+                type: 'link',
+                desc: (
+                  <>
+                    Displays the title of the i-th issue in the table. <br />
+                    Clicking on this link should open the Issue details page.
+                  </>
+                ),
+              },
+              {
+                handle: 'author-i',
+                type: 'text',
+                desc: <>Displays the author of the i-th issue in the table.</>,
+              },
+              {
+                handle: 'status-i',
+                type: 'text',
+                desc: <>Displays the status of the i-th issue in the table.</>,
+              },
+            ]}
+          />
+          Represents a list of issues of the selected project.
+          <AdditionalReq
+            items={[
+              <>
+                Display a list of all issues sorted by ID in descending order.
+              </>,
+              <>The issue ID is an autogenerated integer ID starting from 1.</>,
+              <>
+                The issue sequence ID is not unique for all projects. That means
+                the first issue created in any project must always have an ID
+                equal to 1; the second issue in that project must have an ID
+                equal to 2; the third issue in that project must have an ID
+                equal to 3, and so on.
+              </>,
+              <>
+                Don't implement pagination. You can assume there will be less
+                than 20 issues during testing.
+              </>,
+              <>
+                It should be a separate route. Refreshing the page should load
+                this page again.
+              </>,
+              <>
+                The <code>i</code> symbol in handles represents the row number
+                in the table (starting from 1).
+              </>,
+            ]}
+          />
+        </SubSection>
+        <SubSection title="Add Issue page">
+          <IsolatedHtml
+            height={380}
+            addToggle
+            css={stylesCss}
+            html={addIssueHtml}
+          />
+          <HandlesTable
+            entries={[
+              {
+                handle: 'breadcrumb',
+                type: 'container',
+                desc: (
+                  <>
+                    Contains breadcrumb items (<code>bc-i</code>).
+                  </>
+                ),
+              },
+              {
+                handle: 'bc-1',
+                type: 'link',
+                desc: <>Redirects to the Home page.</>,
+              },
+              {
+                handle: 'bc-2',
+                type: 'link',
+                desc: <>Redirects to the Projects page.</>,
+              },
+              {
+                handle: 'bc-3',
+                type: 'link',
+                desc: (
+                  <>
+                    Displays <code>{'<project_name> - Issues'}</code> text,
+                    where <code>project_name</code> is the name of the opened
+                    project. Clicking on it should redirect to the Issues page.
+                  </>
+                ),
+              },
+              {
+                handle: 'bc-4',
+                type: 'link',
+                desc: <>Displays static "Add Issue" text.</>,
+              },
+              {
+                handle: 'title',
+                type: 'form field',
+                desc: (
+                  <>
+                    Represents a title field. It should include an{' '}
+                    <code>input</code> element and an <code>error</code> handle
+                    for the validation message.
+                  </>
+                ),
+              },
+              {
+                handle: 'description',
+                type: 'form field',
+                desc: (
+                  <>
+                    Represents a description field. It should include an{' '}
+                    <code>textarea</code> element and an <code>error</code>{' '}
+                    handle for the validation message.
+                  </>
+                ),
+              },
+              {
+                handle: 'post-btn',
+                type: 'button',
+                desc: (
+                  <>
+                    Validates and saves the issue. If the issue was successfully
+                    created, redirect to the Issues page.
+                  </>
+                ),
+              },
+            ]}
+          />
+          <FormFields
+            entries={[
+              {
+                field: 'title',
+                type: 'text',
+                desc: 'Represents the issue title.',
+                defaultValue: 'An empty value.',
+                rules: [
+                  {
+                    rule: 'Required',
+                    error: 'Title is required',
+                    condition: 'The Title is empty.',
+                  },
+                ],
+              },
+              {
+                field: 'description',
+                type: 'text',
+                desc: 'Represents the issue description.',
+                defaultValue: 'An empty value.',
+                rules: [
+                  {
+                    rule: 'Required',
+                    error: 'Description is required',
+                    condition: 'The Description is empty.',
+                  },
+                ],
+              },
+            ]}
+          />
+          Represents a form page for creating a new issue.
+          <AdditionalReq
+            items={[
+              <>
+                There is no form field for the status property. Set "Open"
+                status for newly created issues.
+              </>,
+              <>Don't show validation messages by default.</>,
+              <>
+                Trigger synchronous validation errors immediately when typing a
+                value to inputs.
+              </>,
+              <>
+                It should be a separate route. Refreshing the page should load
+                this page again.
+              </>,
+              <>Loading states and confirmation alerts are not required.</>,
+            ]}
+          />
+        </SubSection>
+        <SubSection title="Issue Details page">
+          <IsolatedHtml
+            height={320}
+            addToggle
+            css={stylesCss}
+            html={issueHtml}
+          />
+          <HandlesTable
+            entries={[
+              {
+                handle: 'breadcrumb',
+                type: 'container',
+                desc: (
+                  <>
+                    Contains breadcrumb items (<code>bc-i</code>).
+                  </>
+                ),
+              },
+              {
+                handle: 'bc-1',
+                type: 'link',
+                desc: <>Redirects to the Home page.</>,
+              },
+              {
+                handle: 'bc-2',
+                type: 'link',
+                desc: <>Redirects to the Projects page.</>,
+              },
+              {
+                handle: 'bc-3',
+                type: 'link',
+                desc: (
+                  <>
+                    Displays <code>{'<project_name> - Issues'}</code> text,
+                    where <code>project_name</code> is the name of the opened
+                    project. Clicking on it should redirect to the Issues page.
+                  </>
+                ),
+              },
+              {
+                handle: 'bc-4',
+                type: 'link',
+                desc: (
+                  <>
+                    Displays static <code>{'#{id}'}</code> text, where{' '}
+                    <code>id</code> is the issue id
+                  </>
+                ),
+              },
+              {
+                handle: 'issue-title',
+                type: 'text',
+                desc: <>Displays the issue title and the issue id with hash.</>,
+              },
+              {
+                handle: 'post-i',
+                type: 'container',
+                desc: (
+                  <>
+                    Represents the issue post.
+                    <br />
+                    The first post is always generated automatically based on
+                    the issue author and the provided issue description in the
+                    Create issue page.
+                  </>
+                ),
+              },
+              {
+                handle: 'author',
+                type: 'text',
+                desc: <>Displays the author.</>,
+              },
+              {
+                handle: 'desc',
+                type: 'text',
+                desc: <>Displays the description.</>,
+              },
+            ]}
+          />
+          Represents an issue details page.
+        </SubSection>
+        <AdditionalReq
+          items={[
+            <>
+              It's not possible to create new posts (comments) in the issue.
+              There will always be a single <code>post-1</code> element.
+            </>,
+            <>
+              It should be a separate route. Refreshing the page should load
+              this page again.
+            </>,
+            <>
+              The <code>i</code> symbol in handles represents the index number
+              in the list (starting from 1).
+            </>,
+          ]}
+        />
+      </Section>
+      <Section title="Demo">
+        <video
+          style={{ width: '100%', height: 340, outline: 'none' }}
+          src={
+            'https://practice.dev/assets/001-4-demo.a080328d26f4777cf7aeb378fdc54655.mp4'
+          }
+          loop
+          controls
+        ></video>
+      </Section>
+      <InjectingSection />
+    </div>
+  );
+}

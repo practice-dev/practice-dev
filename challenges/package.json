@@ -1,0 +1,16 @@
+{
+  "name": "challenges",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "ts-node": "ts-node -T",
+    "deploy": "ts-node -T deploy",
+    "test": "yarn run tsc"
+  },
+  "dependencies": {
+    "@pvd/tools": "*",
+    "@pvd/ui": "*"
+  },
+  "devDependencies": {}
+}
