@@ -35,13 +35,16 @@ jobs:
         with:
           node-version: 12.x
 
+      - name: Install ts-node
+        run: npm i -g ts-node
+
       - name: install yarn
         run: yarn install --frozen-lockfile
 
       - name: deploy challenges
         run: |
           cd challenges
-          yarn run deploy
+          ts-node -T deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -52,7 +55,7 @@ jobs:
       - name: deploy projects
         run: |
           cd projects
-          yarn run deploy
+          ts-node -T deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
