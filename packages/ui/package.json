@@ -1,0 +1,27 @@
+{
+  "name": "@pvd/ui",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "test": "yarn run tsc"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "dependencies": {
+    "prismjs": "^1.16.0",
+    "react-transition-group": "^4.4.1",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/clipboard": "^2.0.1",
+    "@types/prismjs": "^1.16.0",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-transition-group": "^4.4.0"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  }
+}

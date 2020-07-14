@@ -1,0 +1,38 @@
+<div class="header">
+  <h2 class="header__title">Buggi</h2>
+  <div
+    data-test-dir="left"
+    data-test="header-username"
+    class="header__username"
+  >
+    Hello owner1
+  </div>
+  <button data-test="logout-btn" class="btn btn-primary">Logout</button>
+</div>
+<div class="page add-issue-page">
+  <div class="breadcrumb" data-test="breadcrumb" data-test-dir="top-center">
+    <a data-test="bc-1" data-test-dir="top" href="/">Home</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><a data-test="bc-2" data-test-dir="top" href="/projects">Projects</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><a data-test="bc-3" data-test-dir="top" href="/projects/1/issues"
+      >Blog - Issues</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><span data-test="bc-4" data-test-dir="top">Add Issue</span>
+  </div>
+  <form class="form">
+    <div class="textbox" data-test="title">
+      <label for="name">Title</label
+      ><input id="title" name="title" type="text" />
+      <div data-test="error" class="error">Title is required</div>
+    </div>
+    <div class="textbox" data-test="description">
+      <label for="name">Description</label
+      ><textarea id="description" name="description"></textarea>
+      <div data-test="error" class="error">Description is required</div>
+    </div>
+    <button class="btn btn-primary" data-test="post-btn" type="submit">
+      Post
+    </button>
+  </form>
+</div>

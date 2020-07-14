@@ -1,0 +1,9 @@
+{
+  "name": "practice-dev",
+  "private": true,
+  "workspaces": [
+    "challenges",
+    "projects",
+    "packages/*"
+  ]
+}

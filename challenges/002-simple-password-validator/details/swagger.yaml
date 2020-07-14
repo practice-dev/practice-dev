@@ -1,0 +1,50 @@
+openapi: "3.0.0"
+info:
+  title: Simple password validation
+  version: 1.0.0
+tags:
+  - name: validation
+paths:
+  /validate:
+    post:
+      operationId: validate
+      tags:
+        - validation
+      description: |
+        Validate if the password meets the following conditions:   
+        1. Must contain at least 5 characters.
+        2. Cannot start or end with a space.
+        3. Must contain at least 1 special character from group: `!@#$`.
+
+        Notes:
+        - You can assume that the input `password` will be a string type, less than 100 characters, and not null or undefined.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PasswordValues"
+      responses:
+        "200":
+          description: The validation result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationResult"
+
+components:
+  schemas:
+    PasswordValues:
+      type: object
+      required:
+        - password
+      properties:
+        password:
+          type: string
+    ValidationResult:
+      type: object
+      required:
+        - isValid
+      properties:
+        isValid:
+          type: boolean

@@ -1,0 +1,66 @@
+<div class="header">
+  <h2 class="header__title">Buggi</h2>
+  <div
+    data-test-dir="left"
+    data-test="header-username"
+    class="header__username"
+  >
+    Hello owner1
+  </div>
+  <button data-test="logout-btn" class="btn btn-primary">Logout</button>
+</div>
+<div class="page issues-page">
+  <div class="breadcrumb" data-test="breadcrumb" data-test-dir="top-center">
+    <a data-test="bc-1" data-test-dir="top" href="/">Home</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><a data-test="bc-2" data-test-dir="top" href="/projects">Projects</a
+    ><span class="breadcrumb__separator">&gt;</span
+    ><span data-test="bc-3" data-test-dir="top">Blog - Issues</span>
+  </div>
+  <a
+    href="/projects/1/issues/new"
+    data-test="add-issue-btn"
+    class="btn btn-primary"
+    >+ Add Issue</a
+  >
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span data-test="id-1">3</span></td>
+        <td>
+          <a href="/projects/1/issues/3" data-test="title-1">New footer</a>
+        </td>
+        <td><span data-test="author-1">owner1</span></td>
+        <td><span data-test="status-1">Open</span></td>
+      </tr>
+      <tr>
+        <td><span data-test="id-2">2</span></td>
+        <td>
+          <a href="/projects/1/issues/2" data-test="title-2"
+            >Lazy load images</a
+          >
+        </td>
+        <td><span data-test="author-2">owner1</span></td>
+        <td><span data-test="status-2">Open</span></td>
+      </tr>
+      <tr>
+        <td><span data-test="id-3">1</span></td>
+        <td>
+          <a href="/projects/1/issues/1" data-test="title-3"
+            >Fix authentication</a
+          >
+        </td>
+        <td><span data-test="author-3">owner1</span></td>
+        <td><span data-test="status-3">Open</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

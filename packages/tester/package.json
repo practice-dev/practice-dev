@@ -1,0 +1,32 @@
+{
+  "name": "@pvd/tester",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "ts-node": "ts-node -T",
+    "jest": "jest --forceExit -i",
+    "lint": "tslint -c tslint.json \"src/**/*.{ts,tsx}\"",
+    "prettier": "prettier --write '{src,scripts}/*.{ts,tsx}'",
+    "test": "yarn run jest --forceExit && yarn run tsc"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "puppeteer": "^3.1.1",
+    "remeda": "^0.0.20"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/jest": "^25.2.3",
+    "@types/puppeteer": "^3.0.1",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.0.0",
+    "ts-loader": "^5.4.4",
+    "typescript": "3.9.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@pvd/schema",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "jest": "jest",
+    "test": "yarn run jest && yarn run tsc"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.0.0",
+    "typescript": "3.9.2"
+  }
+}

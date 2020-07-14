@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: install yarn
+        run: yarn install --frozen-lockfile
+
+      - name: test packages/schema
+        run: |
+          cd packages/schema
+          yarn test
+
+      - name: test packages/tester
+        run: |
+          cd packages/tester
+          yarn test
+
+      - name: test packages/tools
+        run: |
+          cd packages/tools
+          yarn test
+
+      - name: test packages/ui
+        run: |
+          cd packages/ui
+          yarn test
+
+      - name: test packages/types
+        run: |
+          cd packages/types
+          yarn test
+
+      - name: test challenges
+        run: |
+          cd challenges
+          yarn test
+
+      - name: test projects
+        run: |
+          cd projects
+          yarn test
