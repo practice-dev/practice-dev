@@ -27,7 +27,7 @@ export async function buildSources(options: BuildSourcesOptions) {
       react: 'root React',
       'react-dom': 'root ReactDom',
       'styled-components': 'root StyledComponents',
-      ui: 'root ui',
+      '@pvd/ui': 'root ui',
     },
     output: {
       library: 'ChallengeJSONP',
