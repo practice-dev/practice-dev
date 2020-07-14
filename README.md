@@ -31,8 +31,8 @@ There server will listed on `http://localhost:8011`.
   cd projects
   ts-node -T demo 1 2
 ```
-Where `1` is the project id.
-Where `2` is the challenge id.
+Where `1` is the project id.  
+Where `2` is the challenge id.  
 There server will listed on `http://localhost:8011`.
 
 ## Running tests locally
@@ -41,7 +41,7 @@ There server will listed on `http://localhost:8011`.
   cd challenges
   ts-node -T test 1 http://localhost:3000
 ```
-Where `1` is the challenge id.
+Where `1` is the challenge id.  
 Where `http://localhost:3000` is the url to test.
 
 ### Project challenge
@@ -49,8 +49,8 @@ Where `http://localhost:3000` is the url to test.
   cd projects
   ts-node -T test 1 2 http://localhost:3000
 ```
-Where `1` is the project id.
-Where `2` is the challenge id.
+Where `1` is the project id.  
+Where `2` is the challenge id.  
 Where `http://localhost:3000` is the url to test.
 
 ## LICENSE
