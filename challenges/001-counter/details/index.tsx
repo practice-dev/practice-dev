@@ -1,4 +1,10 @@
-import { Section, IsolatedHtml, InjectingSection, HandlesTable } from '@pvd/ui';
+import {
+  Section,
+  IsolatedHtml,
+  InjectingSection,
+  HandlesTable,
+  SubSection,
+} from '@pvd/ui';
 import React from 'react';
 import exampleCss from './assets/example.css';
 import exampleHTML from './assets/example.html';
@@ -73,6 +79,46 @@ export function Details() {
           loop
           controls
         ></video>
+      </Section>
+      <Section title="Tutorials">
+        <SubSection title="CodeSandbox.io">
+          (Recommended) The below video demonstrates how to solve the challenge
+          on{' '}
+          <a href="https://codesandbox.io/" target="_blank">
+            https://codesandbox.io/
+          </a>
+          .
+          <video
+            style={{ width: '100%', height: 400, outline: 'none' }}
+            src={
+              'https://practice.dev/assets/cs-demo.712d7df0d4e7d529a98cb7538622f07a.mp4'
+            }
+            controls
+          ></video>
+        </SubSection>
+        <SubSection title="localhost">
+          The below video demonstrates how to solve this challenge on localhost
+          using{' '}
+          <a href="https://ngrok.com/" target="_blank">
+            https://ngrok.com/
+          </a>
+          . <br />
+          The template is based on{' '}
+          <a
+            href="https://github.com/facebook/create-react-app"
+            target="_blank"
+          >
+            https://github.com/facebook/create-react-app
+          </a>
+          .
+          <video
+            style={{ width: '100%', height: 400, outline: 'none' }}
+            src={
+              'https://practice.dev/assets/localhost-demo.181a756821fd1eb717ee3cfd2fbbb0d8.mp4'
+            }
+            controls
+          ></video>
+        </SubSection>
       </Section>
       <InjectingSection />
     </div>
