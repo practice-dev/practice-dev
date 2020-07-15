@@ -23,7 +23,7 @@ const defaultApiTimeout = 3500;
 
 const defaultTimeout = process.env.DEFAULT_WAIT_TIME
   ? Number(process.env.DEFAULT_WAIT_TIME)
-  : 2500;
+  : 3500;
 
 export const defaultWaitOptions = { visible: true, timeout: defaultTimeout };
 
