@@ -59,7 +59,7 @@ export function Details() {
               ),
             },
             {
-              handle: 'increase-btn',
+              handle: 'decrease-btn',
               type: 'button',
               desc: (
                 <>
