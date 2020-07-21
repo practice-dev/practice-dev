@@ -163,6 +163,22 @@ export class TesterPage {
     await this.page.type(input, text, { delay: 10 });
   }
 
+  async keyboardType(text: string) {
+    await this.stepNotifier.notify(`Press keyboard text "${text}"`);
+    await this.page.keyboard.type(text, { delay: 10 });
+  }
+  async keyboardPress(key: string) {
+    await this.stepNotifier.notify(`Press keyboard key "${key}"`);
+    await this.page.keyboard.press(key, { delay: 10 });
+  }
+
+  async focus(selector: string) {
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(`Focus "${input}"`);
+    await this.page.waitForSelector(input, this.waitOptions);
+    await this.page.focus(input);
+  }
+
   async expectToBeEnabled(selector: string) {
     const input = convertSelector(selector);
     await this.stepNotifier.notify(`Expect "${input}" to be enabled`);
