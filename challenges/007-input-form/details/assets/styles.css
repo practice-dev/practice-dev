@@ -1,0 +1,45 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue';
+  font-size: 16px;
+  color: #333;
+  padding: 0;
+  margin: 0;
+}
+
+.main-content {
+  margin: 50px auto 0;
+  width: 350px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.textbox {
+  margin: 0 10px;
+}
+
+.textbox input {
+  border: none;
+  display: block;
+  padding: 6px 12px;
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 26px;
+  text-align: center;
+}
+
+.result {
+  text-align: center;
+}
