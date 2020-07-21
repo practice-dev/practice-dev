@@ -448,3 +448,64 @@ describe('expectSelectedText', () => {
     );
   });
 });
+
+describe('keyboardType', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <input id="input" autofocus />;`;
+    });
+  });
+
+  it('should type successfully', async () => {
+    await page.evaluate(() => {
+      document.getElementById('input')?.focus();
+    });
+    await tester.keyboardType('abc');
+    expect(notifier.actions).toEqual(['Press keyboard text "abc"']);
+    await tester.expectToMatch('input', 'abc', true);
+  });
+});
+
+describe('keyboardPress', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <input id="input" autofocus  />;`;
+    });
+  });
+
+  it('should press successfully', async () => {
+    await page.evaluate(() => {
+      document.getElementById('input')?.focus();
+    });
+    await tester.keyboardType('abc');
+    notifier.actions.pop();
+    await tester.keyboardPress('Backspace');
+    expect(notifier.actions).toEqual(['Press keyboard key "Backspace"']);
+    await tester.expectToMatch('input', 'ab', true);
+  });
+});
+
+describe('focus', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <input id="input1" />; <input id="input2" />;`;
+    });
+  });
+
+  it('should press successfully', async () => {
+    await tester.focus('#input2');
+    expect(notifier.actions).toEqual(['Focus "#input2"']);
+    await tester.keyboardType('abc');
+    notifier.actions.pop();
+    await tester.expectToMatch('#input2', 'abc', true);
+  });
+
+  it('should throw an error if not found', async () => {
+    await expect(tester.focus('#input3')).rejects.toThrow(
+      'waiting for selector "#input3" failed'
+    );
+  });
+});
