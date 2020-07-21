@@ -30,7 +30,7 @@ export default {
       await tester.getPage().expectToMatch('@count-value', '3', true);
     });
 
-    tester.test('click increment button 2 times', async () => {
+    tester.test('click decrement button 2 times', async () => {
       await tester.getPage().click('@decrease-btn');
       await tester.getPage().expectToMatch('@count-value', '2', true);
       await tester.getPage().click('@decrease-btn');
