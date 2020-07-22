@@ -346,6 +346,9 @@ export class TesterPage {
           const option = options.find(option => (option.text ?? '') === text);
           if (option && !option.disabled) {
             option.selected = true;
+            const evt = document.createEvent('HTMLEvents');
+            evt.initEvent('change', true, true);
+            handle.dispatchEvent(evt);
             return true;
           }
           return false;
