@@ -93,9 +93,9 @@ export function Details() {
         <SubSection title="Formatting rules">
           <ol>
             <li>
-              <strong>No likes</strong>
+              <strong>0 Likes</strong>
               <br />
-              Display "No likes" if <code>totalLikes</code> is <code>0</code>.
+              Display "0 Likes" if <code>totalLikes</code> is <code>0</code>.
               <Example
                 example={{
                   id: 1,
@@ -103,7 +103,7 @@ export function Details() {
                   likedFriends: [],
                   totalLikes: 0,
                 }}
-                result="No likes"
+                result="0 Likes"
               />
             </li>
             <li>
