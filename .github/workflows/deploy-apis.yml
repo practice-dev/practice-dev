@@ -45,7 +45,7 @@ jobs:
 
       - name: deploy
         run: |
-          npm i -g aws-cdk@1.38.0
+          npm i -g aws-cdk@1.54.0
           cd deploy-services
           ts-node -T build
           cdk deploy
