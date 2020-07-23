@@ -4,6 +4,10 @@ function random(n: number) {
   return Math.floor(Math.random() * n);
 }
 
+const headers = {
+  'Content-Type': 'application/json',
+};
+
 export function handler() {
   const n = random(10);
   // 10% - internal error
@@ -11,23 +15,23 @@ export function handler() {
   // 80% - bad request error
   if (n === 0) {
     return {
-      status: 500,
-      body: 'Oops error',
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Oops error' }),
+      headers,
     };
   }
 
   if (n !== 1) {
     return {
-      status: 400,
-      body: 'Oops error',
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Oops error' }),
+      headers,
     };
   }
 
   return {
-    status: 200,
+    statusCode: 200,
     body: JSON.stringify({ color: colors[random(colors.length)] }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
   };
 }
