@@ -9,10 +9,10 @@ const headers = {
 };
 
 export async function handler() {
-  const n = random(10);
-  // 10% - internal error
-  // 10% - success
-  // 80% - bad request error
+  const n = random(5);
+  // 20% - internal error
+  // 20% - success
+  // 60% - bad request error
   if (n === 0) {
     return {
       statusCode: 500,
