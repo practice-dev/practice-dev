@@ -1,0 +1,74 @@
+openapi: "3.0.0"
+info:
+  title: No-fly zone
+  version: 1.0.0
+tags:
+  - name: zone
+  - name: check
+paths:
+  /zone:
+    post:
+      operationId: addZone
+      tags:
+        - zone
+      description: |
+        Adds a new no-fly zone.  
+        You can assume the input `lat` and `lng` will be valid coordinates.  
+        The coordinates will always create a valid non-self-intersecting polygon.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ZoneValues"
+      responses:
+        "200":
+          description: The result. It can be empty or any content.
+  /check:
+    post:
+      operationId: checkZone
+      tags:
+        - check
+      description: |
+        Checks if the given point intersects with any no-fly zone.  
+        You can assume the input `lat` and `lng` will be valid coordinates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Point"
+      responses:
+        "200":
+          description: The intersection result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntersectionResult"
+
+components:
+  schemas:
+    ZoneValues:
+      type: object
+      properties:
+        coordinates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Point"
+    IntersectionResult:
+      type: object
+      required:
+        - isValid
+      properties:
+        isIntersecting:
+          type: boolean
+    Point:
+      type: object
+      required:
+        - lng
+        - lat
+      properties:
+        lng:
+          type: number
+        lat:
+          type: number
