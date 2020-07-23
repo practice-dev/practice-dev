@@ -8,7 +8,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export function handler() {
+export async function handler() {
   const n = random(10);
   // 10% - internal error
   // 10% - success
