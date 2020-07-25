@@ -1,0 +1,15 @@
+{
+  "name": "flaky-api",
+  "version": "1.0.0",
+  "description": "",
+  "sideEffects": false,
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "test": "yarn run tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

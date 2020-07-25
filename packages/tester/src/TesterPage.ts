@@ -4,6 +4,7 @@ import {
   getSelectorMatchResult,
   isPuppeteerTimeout,
 } from './helper';
+import { RequestMocker } from './RequestMocker';
 import { TestError } from './TestError';
 import { StepNotifier } from './types';
 
@@ -465,5 +466,15 @@ export class TesterPage {
         `Expected selected text: "${text}". Actual: "${actual}".`
       );
     }
+  }
+
+  async enableRequestMocking() {
+    const reqMocking = new RequestMocker(
+      this.stepNotifier,
+      this.page,
+      this.defaultTimeout
+    );
+    await reqMocking.init();
+    return reqMocking;
   }
 }

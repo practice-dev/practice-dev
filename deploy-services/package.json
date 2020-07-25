@@ -1,0 +1,17 @@
+{
+  "name": "deploy-services",
+  "private": true,
+  "version": "1.0.0",
+  "sideEffects": false,
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "test": "yarn run tsc"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-dynamodb": "^1.54.0",
+    "@aws-cdk/aws-lambda": "^1.54.0",
+    "@aws-cdk/cdk": "^0.36.1",
+    "@aws-cdk/core": "^1.54.0"
+  },
+  "devDependencies": {}
+}

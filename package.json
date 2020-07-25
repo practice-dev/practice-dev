@@ -4,6 +4,8 @@
   "workspaces": [
     "challenges",
     "projects",
-    "packages/*"
+    "packages/*",
+    "service/*",
+    "deploy-services"
   ]
 }

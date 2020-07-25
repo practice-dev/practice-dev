@@ -1,0 +1,4 @@
+{
+  "requireApproval": "never",
+  "app": "ts-node -T ServicesStack"
+}
