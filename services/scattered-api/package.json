@@ -1,0 +1,19 @@
+{
+  "name": "scattered-api",
+  "version": "1.0.0",
+  "description": "",
+  "sideEffects": false,
+  "scripts": {
+    "start": "ts-node-dev -T src/local",
+    "tsc": "tsc --noEmit",
+    "test": "yarn run tsc"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.56"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
