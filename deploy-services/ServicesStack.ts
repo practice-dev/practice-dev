@@ -19,6 +19,7 @@ class MainStack extends cdk.Stack {
   constructor(app: cdk.App, id: string) {
     super(app, id);
     createLambda(this, 'flaky-api');
+    createLambda(this, 'scattered-api');
   }
 }
 
