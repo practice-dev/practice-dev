@@ -60,13 +60,13 @@ const products: Product[] = [
         productId: '8ff1350f-3ca1-4da0-b2fa-a30ba2a01b7e',
       },
       {
-        id: '57cb15fb-80e5-480f-b144-5b4991bec3a6',
-        tagId: '8217c248-a385-48f8-b430-577f42cd034c',
+        id: '8217c248-a385-48f8-b430-577f42cd034c',
+        tagId: '57cb15fb-80e5-480f-b144-5b4991bec3a6',
         productId: '8ff1350f-3ca1-4da0-b2fa-a30ba2a01b7e',
       },
       {
-        id: '7ed5551c-d004-4102-a665-1c930828dad9',
-        tagId: 'a242508b-6db5-421e-928d-00aee0cab8c0',
+        id: 'a242508b-6db5-421e-928d-00aee0cab8c0',
+        tagId: '7ed5551c-d004-4102-a665-1c930828dad9',
         productId: '8ff1350f-3ca1-4da0-b2fa-a30ba2a01b7e',
       },
     ],
