@@ -309,9 +309,9 @@ export default {
         };
         const requests = await _getDefaultRequests(requestMock, deferMap);
         await _clickAndCancel(page, async () => {
-          await requests[2].expectToBeCalled(1);
-          await requests[3].expectToBeCalled(1);
-          await requests[4].expectToBeCalled(1);
+          await requests[5].expectToBeCalled(1);
+          await requests[6].expectToBeCalled(1);
+          await requests[7].expectToBeCalled(1);
         });
         deferMap.t1.resolve();
         deferMap.t2.resolve();
