@@ -1,0 +1,121 @@
+openapi: "3.0.0"
+info:
+  title: Scattered API
+  version: 1.0.0
+tags:
+  - name: product
+  - name: productTag
+  - name: tag
+paths:
+  /products:
+    get:
+      operationId: getProducts
+      tags:
+        - product
+      description: |
+        Gets all products ids.
+      responses:
+        "200":
+          description: The list of products. The response represents an array of ids.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /products/{id}:
+    get:
+      operationId: getProduct
+      tags:
+        - product
+      description: |
+        Get product by id.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The product ID.
+      responses:
+        "200":
+          description: The product details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+
+  /product-tags/{id}:
+    get:
+      operationId: getProductTag
+      tags:
+        - productTag
+      description: |
+        Get product tag by id. A product tag is a reference between a product and a tag.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The product tag ID.
+      responses:
+        "200":
+          description: The product tag details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTag"
+
+  /tags/{id}:
+    get:
+      operationId: getTag
+      tags:
+        - tag
+      description: |
+        Get tag by id.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The tag ID.
+      responses:
+        "200":
+          description: The tag details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tag"
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    ProductTag:
+      type: object
+      properties:
+        id:
+          type: string
+        tagId:
+          type: string
+        productId:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string;

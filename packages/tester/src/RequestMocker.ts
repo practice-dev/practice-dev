@@ -23,6 +23,7 @@ class ReqMock {
   private fn: RespondFn | null = null;
   private count = 0;
   private error: TestError | null = null;
+  private request: Request | null = null;
 
   constructor(
     private name: string,
@@ -47,6 +48,7 @@ class ReqMock {
   }
 
   async process(request: Request) {
+    this.request = request;
     this.stepNotifier.notify(`Processing request ${this._getDisplayName()}`);
     if (this.isBlocked) {
       this.error = new TestError(
@@ -65,6 +67,7 @@ class ReqMock {
     }
     const body = ret.json ? JSON.stringify(ret.json) : undefined;
     await new Promise(resolve => setTimeout(resolve, 10));
+
     await request.respond({
       contentType: 'application/json',
       status: ret.status,
@@ -100,6 +103,11 @@ class ReqMock {
           this.count
         } times.`
       );
+    }
+  }
+  async expectToBeCancelled() {
+    if (this.request?.failure()?.errorText !== 'net::ERR_ABORTED') {
+      throw new TestError(`Expected ${this._getDisplayName()} to be canceled.`);
     }
   }
 }
