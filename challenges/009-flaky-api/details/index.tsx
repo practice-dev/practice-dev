@@ -1,5 +1,4 @@
 import {
-  AdditionalReq,
   HandlesTable,
   Highlight,
   InjectingSection,
