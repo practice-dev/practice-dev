@@ -118,7 +118,10 @@ const routes: Route[] = [
       if (!product) {
         throw new NotFoundError('Product not found with id = ' + params.id);
       }
-      return product;
+      return {
+        ...product,
+        tags: product.tags.map(x => x.id),
+      };
     },
   },
   {
