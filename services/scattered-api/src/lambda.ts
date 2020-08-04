@@ -102,7 +102,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export const routes: Route[] = [
+const routes: Route[] = [
   {
     method: 'get',
     path: '/products',
@@ -168,7 +168,12 @@ export async function handler(event: APIHttpEvent) {
       if (!exec) {
         continue;
       }
-      return route.handler(event, exec.groups ?? {});
+      const body = await route.handler(event, exec.groups ?? {});
+      return {
+        statusCode: 200,
+        body: JSON.stringify(body),
+        headers,
+      };
     }
     throw new NotFoundError('Route not found');
   } catch (e) {
