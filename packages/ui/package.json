@@ -9,7 +9,7 @@
   "license": "MIT",
   "sideEffects": false,
   "dependencies": {
-    "prismjs": "^1.16.0",
+    "prismjs": "^1.21.0",
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.1.0"
   },
