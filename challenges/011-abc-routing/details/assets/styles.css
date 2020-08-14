@@ -1,0 +1,39 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue';
+  font-size: 16px;
+  color: #333;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  padding: 40px;
+  text-align: center;
+}
+
+.header {
+  border-bottom: 1px solid #ccc;
+}
+
+.main-menu {
+  margin: 0 auto;
+  display: flex;
+  max-width: 600px;
+  justify-content: center;
+}
+
+.main-menu li {
+  list-style: none;
+  padding: 15px 20px;
+}
+
+.main-menu li a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+.main-menu li a:hover {
+  color: black;
+  text-decoration: underline;
+}

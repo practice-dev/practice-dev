@@ -11,13 +11,17 @@ let browser: Browser;
 let tester: TesterPage;
 let notifier: TestNotifier;
 
+function getBaseUrl() {
+  return 'http://localhost:' + TEST_PORT;
+}
+
 beforeAll(async () => {
   browser = await launch({
     headless: true,
   });
   page = await browser.newPage();
   server = await initFrontendServer(TEST_PORT);
-  await page.goto('http://localhost:' + TEST_PORT);
+  await page.goto(getBaseUrl());
 });
 
 afterAll(async done => {
@@ -506,6 +510,29 @@ describe('focus', () => {
   it('should throw an error if not found', async () => {
     await expect(tester.focus('#input3')).rejects.toThrow(
       'waiting for selector "#input3" failed'
+    );
+  });
+});
+
+describe('expectUrlToMatch', () => {
+  it('should expect url successfully (already correct)', async () => {
+    await page.goto(getBaseUrl());
+    await tester.expectUrlToMatch('/');
+    expect(notifier.actions).toEqual(['Expect URL to equal "/"']);
+  });
+
+  it('should expect url successfully', async () => {
+    await page.goto(getBaseUrl());
+    const expectUrl = tester.expectUrlToMatch('/foo');
+    const goto = page.goto(getBaseUrl() + '/foo');
+    await Promise.all([expectUrl, goto]);
+    expect(notifier.actions).toEqual(['Expect URL to equal "/foo"']);
+  });
+
+  it('should throw an error incorrect url', async () => {
+    await page.goto(getBaseUrl());
+    await expect(tester.expectUrlToMatch('/foo')).rejects.toThrow(
+      'Expected URL to equal /foo, but got /'
     );
   });
 });
