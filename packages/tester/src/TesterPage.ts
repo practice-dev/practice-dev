@@ -1,3 +1,4 @@
+import URL from 'url';
 import { Page, WaitForSelectorOptions, ElementHandle } from 'puppeteer';
 import {
   checkHasSelectorMatches,
@@ -371,6 +372,11 @@ export class TesterPage {
     await this.page.goBack(waitNavigationOptions);
   }
 
+  async goForward() {
+    await this.stepNotifier.notify(`Navigating forward`);
+    await this.page.goForward(waitNavigationOptions);
+  }
+
   async expectToHaveOption(selector: string, text: string) {
     const input = convertSelector(selector);
     await this.stepNotifier.notify(
@@ -476,5 +482,24 @@ export class TesterPage {
     );
     await reqMocking.init();
     return reqMocking;
+  }
+
+  async expectUrlToMatch(url: string) {
+    const start = Date.now();
+    await this.stepNotifier.notify(`Expect URL to equal "${url}"`);
+    return new Promise<void>((resolve, reject) => {
+      const intId = setInterval(() => {
+        let current = URL.parse(this.page.url()).path;
+        if (current === url) {
+          clearInterval(intId);
+          resolve();
+        } else if (Date.now() - start > this.defaultTimeout) {
+          clearInterval(intId);
+          reject(
+            new TestError(`Expected URL to equal ${url}, but got ${current}`)
+          );
+        }
+      }, 10);
+    });
   }
 }
