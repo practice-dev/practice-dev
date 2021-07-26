@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "emitDeclarationOnly": false,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "noEmitOnError": false,
+    "noEmit": false,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "DOM.Iterable",
+      "es6",
+      "ES2017.object",
+      "ES2016.Array.Include"
+    ],
+    "pretty": true,
+    "keyofStringsOnly": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "downlevelIteration": true,
+    "noUnusedParameters": false,
+    "skipLibCheck": true
+  }
+}
