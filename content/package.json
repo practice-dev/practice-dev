@@ -6,8 +6,8 @@
   "sideEffects": false,
   "scripts": {
     "tsc": "tsc --noEmit",
-    "test": "yarn run tsc && yarn run jest",
-    "deploy": "ts-node -T src/deployModule"
+    "test": "yarn run tsc",
+    "deploy": "ts-node -T src/deploy"
   },
   "dependencies": {
     "@pvd/tools": "*",

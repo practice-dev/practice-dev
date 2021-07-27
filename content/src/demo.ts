@@ -21,7 +21,7 @@ if (!Number(challengeId)) {
 }
 
 demo({
-  basedir: Path.join(__dirname, 'modules'),
+  basedir: Path.join(__dirname, '../modules'),
   challengeId: Number(challengeId),
   moduleId: Number(moduleId),
 });

@@ -1,7 +1,10 @@
 {
   "name": "practice-dev",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "generate": "graphql-codegen",
+    "g": "yarn run generate"
+  },
   "engines": {
     "node": "14.x"
   },
@@ -10,9 +13,15 @@
     "content"
   ],
   "dependencies": {
+    "@apollo/client": "^3.3.13",
     "@types/prettier": "^2.3.2",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
+    "@graphql-codegen/cli": "^1.21.3",
+    "@graphql-codegen/typescript": "^1.21.1",
+    "@graphql-codegen/typescript-operations": "^1.17.15",
+    "@graphql-codegen/typescript-resolvers": "^1.19.0",
+    "graphql": "^15.5.0",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5",
