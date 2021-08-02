@@ -39,10 +39,16 @@ input UpdateChallengeInput {
   detailsS3Key: String!
   htmlS3Key: String!
   files: [ChallengeFileInput!]!
+  libraries: [LibraryInput!]!
 }
 
 input ChallengeFileInput {
   name: String!
   directory: String!
   s3Key: String!
+}
+input LibraryInput {
+  name: String!
+  types: String!
+  source: String!
 }

@@ -35,6 +35,12 @@ export type ChallengeFileInput = {
   s3Key: Scalars['String'];
 };
 
+export type LibraryInput = {
+  name: Scalars['String'];
+  types: Scalars['String'];
+  source: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   updateModule?: Maybe<Scalars['Void']>;
@@ -64,6 +70,7 @@ export type UpdateChallengeInput = {
   detailsS3Key: Scalars['String'];
   htmlS3Key: Scalars['String'];
   files: Array<ChallengeFileInput>;
+  libraries: Array<LibraryInput>;
 };
 
 export type UpdateModuleInput = {

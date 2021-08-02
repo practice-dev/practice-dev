@@ -1,4 +1,4 @@
-import { deployProject } from '@pvd/tools';
+import { deployModule } from '@pvd/tools';
 import Path from 'path';
 
 const moduleId = process.argv[2];
@@ -11,7 +11,7 @@ if (!Number(moduleId)) {
   throw new Error('Invalid module id');
 }
 
-deployProject({
+deployModule({
   basedir: Path.join(__dirname, '../modules'),
   moduleId: Number(moduleId),
 });

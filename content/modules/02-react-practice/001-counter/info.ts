@@ -1,4 +1,4 @@
-import { ChallengeUpload } from '../../../types';
+import { ChallengeUpload } from '@pvd/tools';
 
 export const info: ChallengeUpload = {
   title: 'Counter',

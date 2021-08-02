@@ -9,6 +9,7 @@ export interface ModuleUpload {
   mainTechnology: string;
   difficulty: Difficulty | 'various';
   tags: string[];
+  defaultLibraries?: LibraryDefinition[];
 }
 
 export interface ChallengeUpload {
@@ -16,6 +17,7 @@ export interface ChallengeUpload {
   description: string;
   difficulty: Difficulty;
   practiceTime: number;
+  library?: LibraryDefinition[];
 }
 
 export interface ChallengeInfo {
@@ -26,4 +28,10 @@ export interface ChallengeInfo {
   distFileName: string;
   distFilePath: string;
   htmlFilePath: string;
+}
+
+export interface LibraryDefinition {
+  name: string;
+  types: string;
+  source: string;
 }

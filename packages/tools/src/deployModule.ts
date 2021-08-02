@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as R from 'remeda';
 import * as ReactDOMServer from 'react-dom/server';
 import * as Path from 'path';
 import fs from 'fs-extra';
@@ -96,7 +97,7 @@ function _getChallengeFiles(sourceDir: string) {
   });
 }
 
-function _getChallengesInfo(moduleDir: string) {
+function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
   const moduleId = getNumberPrefix(Path.basename(moduleDir));
   const challenges: ChallengeInfo[] = [];
   const challengeRoots = getValidChallengeRoots(moduleDir);
@@ -121,6 +122,10 @@ function _getChallengesInfo(moduleDir: string) {
       postfix: '.html',
     }).name;
     fs.writeFileSync(htmlFilePath, detailsHTML);
+    const libraries = info.library ?? moduleUpload.defaultLibraries;
+    if (!libraries) {
+      throw new Error('No libraries for: ' + challengeId);
+    }
     challenges.push({
       challenge: {
         challengeId: challengeId,
@@ -132,6 +137,7 @@ function _getChallengesInfo(moduleDir: string) {
         files: _getChallengeFiles(sourceDir),
         htmlS3Key: '',
         moduleId,
+        libraries,
       },
       sourceDir,
       detailsPath,
@@ -223,18 +229,18 @@ async function _uploadChallenges(
   ]);
 }
 
-interface DeployProjectOptions {
+interface DeployModuleOptions {
   basedir: string;
   moduleId: number;
 }
 
-export async function deployProject(options: DeployProjectOptions) {
+export async function deployModule(options: DeployModuleOptions) {
   const { basedir, moduleId } = options;
   const { modulePath } = findModuleDir(basedir, moduleId);
   const moduleUpload = require(Path.join(modulePath, 'info.ts'))
     .info as ModuleUpload;
   moduleUpload.id = moduleId;
-  const challenges = _getChallengesInfo(modulePath);
+  const challenges = _getChallengesInfo(moduleUpload, modulePath);
   await _buildDetails(modulePath, challenges);
   const s3Auth = await getAwsUploadContentAuth();
   const s3Upload = new S3Upload(s3Auth);
@@ -242,5 +248,8 @@ export async function deployProject(options: DeployProjectOptions) {
   await Promise.all(
     challenges.map(challenge => updateChallenge(challenge.challenge))
   );
-  await updateModule({ ...moduleUpload, id: moduleId });
+  await updateModule({
+    ...R.omit(moduleUpload, ['defaultLibraries']),
+    id: moduleId,
+  });
 }
