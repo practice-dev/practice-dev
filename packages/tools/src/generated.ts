@@ -33,6 +33,7 @@ export type ChallengeFileInput = {
   name: Scalars['String'];
   directory: Scalars['String'];
   s3Key: Scalars['String'];
+  isLocked?: Maybe<Scalars['Boolean']>;
 };
 
 export type LibraryInput = {

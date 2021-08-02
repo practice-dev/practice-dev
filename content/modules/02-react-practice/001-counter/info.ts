@@ -5,4 +5,5 @@ export const info: ChallengeUpload = {
   description: 'Create a basic counter application.',
   difficulty: 'beginner',
   practiceTime: 5,
+  lockedFiles: ['index.tsx'],
 };

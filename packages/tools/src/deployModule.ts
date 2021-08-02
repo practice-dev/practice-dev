@@ -85,12 +85,13 @@ async function _buildDetails(basedir: string, challenges: ChallengeInfo[]) {
   });
 }
 
-function _getChallengeFiles(sourceDir: string) {
+function _getChallengeFiles(sourceDir: string, lockedFiles: string[]) {
   return walk(sourceDir).map(filePath => {
     const relativePath = Path.relative(sourceDir, filePath);
     const fileInput: ChallengeFileInput = {
       name: Path.basename(relativePath),
       directory: Path.dirname(relativePath),
+      isLocked: lockedFiles.includes(relativePath),
       s3Key: '',
     };
     return fileInput;
@@ -134,7 +135,7 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
         difficulty: info.difficulty,
         practiceTime: info.practiceTime,
         detailsS3Key: '',
-        files: _getChallengeFiles(sourceDir),
+        files: _getChallengeFiles(sourceDir, info.lockedFiles),
         htmlS3Key: '',
         moduleId,
         libraries,

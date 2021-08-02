@@ -46,6 +46,7 @@ input ChallengeFileInput {
   name: String!
   directory: String!
   s3Key: String!
+  isLocked: Boolean
 }
 input LibraryInput {
   name: String!
