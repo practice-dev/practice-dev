@@ -27,9 +27,11 @@ export interface ChallengeInfo {
   uniqName: string;
   sourceDir: string;
   detailsPath: string;
+  testPath: string;
   distFileName: string;
   distFilePath: string;
   htmlFilePath: string;
+  distTestPath: string;
 }
 
 export interface LibraryDefinition {

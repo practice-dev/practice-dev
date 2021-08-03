@@ -40,3 +40,8 @@ jobs:
         run: |
           cd packages/tools
           yarn test
+
+      - name: test packages/tester
+        run: |
+          cd packages/tester
+          yarn test

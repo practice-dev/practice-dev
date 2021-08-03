@@ -4,16 +4,11 @@ import * as ReactDOMServer from 'react-dom/server';
 import * as Path from 'path';
 import fs from 'fs-extra';
 import tmp from 'tmp';
-import webpack from 'webpack';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
 import mime from 'mime-types';
 import {
-  execWebpack,
   findModuleDir,
   getNumberPrefix,
   getValidChallengeRoots,
-  getWebpackModule,
   md5,
   walk,
 } from './helper';
@@ -25,64 +20,12 @@ import {
 import { S3Upload } from './S3Upload';
 import { ChallengeInfo, ChallengeUpload, ModuleUpload } from './types';
 import { ChallengeFileInput, UpdateChallengeInput } from './generated';
+import { buildDetails } from './buildDetails';
+import { buildTests } from './buildTests';
 
 function _nodeToMarkup(component: string) {
   const node = React.createElement(component);
   return ReactDOMServer.renderToStaticMarkup(node);
-}
-
-async function _buildDetails(basedir: string, challenges: ChallengeInfo[]) {
-  const entry: Record<string, string[]> = {};
-  challenges.forEach(task => {
-    entry[task.uniqName] = [task.detailsPath];
-  });
-  const detailsDir = Path.join(basedir, 'dist');
-  await execWebpack({
-    context: basedir,
-    name: 'client',
-    target: 'web',
-    mode: 'production',
-    devtool: false,
-    resolve: {
-      extensions: ['.tsx', '.ts', '.jsx', '.js', '.json', 'json5'],
-    },
-    optimization: {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            format: {
-              comments: false,
-            },
-          },
-          extractComments: false,
-        }),
-      ] as any,
-    },
-    entry: entry,
-    externals: {
-      react: 'root React',
-      prismjs: 'root Prism',
-      'react-dom': 'root ReactDom',
-    },
-    output: {
-      library: 'ChallengeJSONP',
-      filename: '[name].js',
-      chunkFilename: '[name].js',
-      libraryTarget: 'jsonp',
-      path: detailsDir,
-      publicPath: '/',
-    },
-    plugins: [
-      new CleanWebpackPlugin(),
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        },
-      }),
-    ],
-    module: getWebpackModule(),
-  });
 }
 
 function _getChallengeFiles(sourceDir: string, lockedFiles: string[]) {
@@ -109,11 +52,15 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
     const detailsPath = Path.join(challengeDir, 'details', 'index.tsx');
     const sourceDir = Path.join(challengeDir, 'source');
     const infoPath = Path.join(challengeDir, 'info.ts');
+    const testPath = Path.join(challengeDir, 'test-case.ts');
     if (!fs.existsSync(detailsPath)) {
       throw new Error(`${detailsPath} doesn't exist`);
     }
     if (!fs.existsSync(infoPath)) {
       throw new Error(`${infoPath} doesn't exist`);
+    }
+    if (!fs.existsSync(testPath)) {
+      throw new Error(`${testPath} doesn't exist`);
     }
     const info = require(infoPath).info as ChallengeUpload;
     const uniqName = challengeDirName;
@@ -138,15 +85,18 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
         detailsS3Key: '',
         files: _getChallengeFiles(sourceDir, info.lockedFiles),
         htmlS3Key: '',
+        testS3Key: '',
         moduleId,
         libraries,
       },
+      testPath,
       sourceDir,
       detailsPath,
       distFileName,
       uniqName,
       htmlFilePath,
       distFilePath: Path.join(moduleDir, 'dist', distFileName),
+      distTestPath: Path.join(moduleDir, 'dist/tests', distFileName),
     });
   });
   return challenges;
@@ -208,17 +158,30 @@ async function _uploadChallenges(
     ...challenges.map(async info => {
       await Promise.all(
         [
-          { path: info.htmlFilePath, out: 'htmlS3Key' as const },
-          { path: info.distFilePath, out: 'detailsS3Key' as const },
+          {
+            path: info.htmlFilePath,
+            out: 'htmlS3Key' as const,
+            prefix: '/details/',
+          },
+          {
+            path: info.distFilePath,
+            out: 'detailsS3Key' as const,
+            prefix: '/details/',
+          },
+          {
+            path: info.distTestPath,
+            out: 'testS3Key' as const,
+            prefix: '/test/',
+          },
         ].map(async file => {
-          const { out, path } = file;
+          const { out, path, prefix } = file;
           const { contentType, hashedName, content } = await _prepareFileUpload(
             path,
             file.out.replace('S3Key', '')
           );
-          const s3Key = `${_getChallengePrefix(
+          const s3Key = `cdn/${_getChallengePrefix(
             info.challenge
-          )}/details/${hashedName}`;
+          )}${prefix}${hashedName}`;
           await s3Upload.upload({
             content,
             contentType,
@@ -243,7 +206,8 @@ export async function deployModule(options: DeployModuleOptions) {
     .info as ModuleUpload;
   moduleUpload.id = moduleId;
   const challenges = _getChallengesInfo(moduleUpload, modulePath);
-  await _buildDetails(modulePath, challenges);
+  await buildDetails(modulePath, challenges);
+  await buildTests(modulePath, challenges);
   const s3Auth = await getAwsUploadContentAuth();
   const s3Upload = new S3Upload(s3Auth);
   await _uploadChallenges(s3Upload, challenges);

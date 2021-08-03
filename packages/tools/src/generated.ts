@@ -70,6 +70,7 @@ export type UpdateChallengeInput = {
   practiceTime: Scalars['Int'];
   detailsS3Key: Scalars['String'];
   htmlS3Key: Scalars['String'];
+  testS3Key: Scalars['String'];
   solutionUrl: Scalars['String'];
   files: Array<ChallengeFileInput>;
   libraries: Array<LibraryInput>;
