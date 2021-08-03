@@ -6,4 +6,5 @@ export const info: ChallengeUpload = {
   difficulty: 'beginner',
   practiceTime: 5,
   lockedFiles: ['index.tsx'],
+  solutionUrl: 'https://pd-02-01-upbeat-mcnulty-035d18.netlify.app',
 };

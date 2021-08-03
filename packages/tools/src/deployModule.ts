@@ -134,6 +134,7 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
         description: info.description,
         difficulty: info.difficulty,
         practiceTime: info.practiceTime,
+        solutionUrl: info.solutionUrl,
         detailsS3Key: '',
         files: _getChallengeFiles(sourceDir, info.lockedFiles),
         htmlS3Key: '',

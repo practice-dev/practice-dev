@@ -38,6 +38,7 @@ input UpdateChallengeInput {
   practiceTime: Int!
   detailsS3Key: String!
   htmlS3Key: String!
+  solutionUrl: String!
   files: [ChallengeFileInput!]!
   libraries: [LibraryInput!]!
 }

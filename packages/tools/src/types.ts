@@ -19,6 +19,7 @@ export interface ChallengeUpload {
   practiceTime: number;
   library?: LibraryDefinition[];
   lockedFiles: string[];
+  solutionUrl: string;
 }
 
 export interface ChallengeInfo {
