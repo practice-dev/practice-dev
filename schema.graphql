@@ -42,6 +42,7 @@ input UpdateChallengeInput {
   solutionUrl: String!
   files: [ChallengeFileInput!]!
   libraries: [LibraryInput!]!
+  tests: [String!]!
 }
 
 input ChallengeFileInput {

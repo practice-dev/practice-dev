@@ -74,6 +74,7 @@ export type UpdateChallengeInput = {
   solutionUrl: Scalars['String'];
   files: Array<ChallengeFileInput>;
   libraries: Array<LibraryInput>;
+  tests: Array<Scalars['String']>;
 };
 
 export type UpdateModuleInput = {
