@@ -1,34 +1,34 @@
 import chalk from 'chalk';
-import { SocketMessage, TestInfo } from '@pvd/types';
+import { TesterSocketMessage, TestInfo } from '@pvd/types';
 import { Notifier } from './types';
 
 export class ConsoleNotifier implements Notifier {
   private tests: TestInfo[] | null = null;
 
   private getTest(id: number) {
-    return this.tests!.find((x) => x.id === id)!;
+    return this.tests!.find(x => x.id === id)!;
   }
 
   async flush() {
     //
   }
 
-  async notify(action: SocketMessage) {
+  async notify(action: TesterSocketMessage) {
     switch (action.type) {
       case 'TEST_INFO': {
         this.tests = action.payload.tests;
         break;
       }
-      case 'RESULT': {
+      case 'TEST_RESULT': {
         console.log(action.payload.success ? 'PASS' : 'FAIL');
         break;
       }
-      case 'STARTING_TEST': {
+      case 'TEST_START': {
         const test = this.getTest(action.payload.testId);
         console.log(` Test ${test.id}: ${test.name}`);
         break;
       }
-      case 'STEP': {
+      case 'TEST_STEP': {
         const msg = '    ' + chalk.gray(action.payload.text);
         if (action.payload.data) {
           console.log(msg, action.payload.data);

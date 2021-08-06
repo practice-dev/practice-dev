@@ -13,14 +13,14 @@ export async function runTests(
   notifier: Notifier
 ) {
   const createdBrowsers: Record<string, Browser> = {};
-  const meta = { id: id };
+  const meta = { submissionId: id };
   let currentTestId = 0;
 
   const tester = new Tester(
     {
       notify(text, data) {
         return notifier.notify({
-          type: 'STEP',
+          type: 'TEST_STEP',
           meta,
           payload: { text, data, testId: currentTestId },
         });
@@ -41,7 +41,7 @@ export async function runTests(
 
   let success = true;
 
-  const serialized: TestInfo[] = tester.tests.map((test) => ({
+  const serialized: TestInfo[] = tester.tests.map(test => ({
     id: test.id,
     name: test.name,
     result: 'pending',
@@ -59,7 +59,7 @@ export async function runTests(
   for (const test of tester.tests) {
     currentTestId = test.id;
     await notifier.notify({
-      type: 'STARTING_TEST',
+      type: 'TEST_START',
       meta,
       payload: { testId: test.id },
     });
@@ -90,12 +90,12 @@ export async function runTests(
       break;
     }
   }
-  await notifier.notify({ type: 'RESULT', meta, payload: { success } });
+  await notifier.notify({ type: 'TEST_RESULT', meta, payload: { success } });
   await notifier.flush();
 
-  Object.values(createdBrowsers).forEach((browser) => {
+  Object.values(createdBrowsers).forEach(browser => {
     try {
-      browser.close();
+      void browser.close();
     } catch (e) {
       console.error(e);
     }

@@ -1,4 +1,4 @@
-import { UpdateChallengeInput } from './generated';
+import { APIClient } from './APIClient';
 
 export type Difficulty = 'beginner' | 'easy' | 'medium' | 'hard' | 'expert';
 
@@ -23,7 +23,7 @@ export interface ChallengeUpload {
 }
 
 export interface ChallengeInfo {
-  challenge: UpdateChallengeInput;
+  challenge: UpdateChallengeValues;
   uniqName: string;
   sourceDir: string;
   detailsPath: string;
@@ -39,3 +39,11 @@ export interface LibraryDefinition {
   types: string;
   source: string;
 }
+
+type ExtractFirstArg<T> = T extends (arg: infer U) => any ? U : never;
+
+export type UpdateChallengeValues = ExtractFirstArg<
+  APIClient['challenge_updateChallenge']
+>;
+
+export type ChallengeFile = UpdateChallengeValues['files'][0];

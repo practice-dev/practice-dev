@@ -3,7 +3,7 @@ process.env.DEFAULT_WAIT_TIME = '100';
 import http from 'http';
 import { TestConfiguration, Notifier } from '../types';
 import { runTests } from '../runTests';
-import { SocketMessage } from '@pvd/types';
+import { TesterSocketMessage } from '@pvd/types';
 import { initFrontendServer, TEST_PORT } from './helper';
 
 class TestNotifier implements Notifier {
@@ -12,7 +12,7 @@ class TestNotifier implements Notifier {
     this.messages.push('flush');
   }
 
-  async notify(action: SocketMessage) {
+  async notify(action: TesterSocketMessage) {
     this.messages.push(action);
   }
 }
@@ -56,100 +56,100 @@ describe('frontend single page', () => {
       notifier
     );
     expect(notifier.messages).toMatchInlineSnapshot(`
-      Array [
+Array [
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "tests": Array [
         Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "tests": Array [
-              Object {
-                "id": 1,
-                "name": "navigate to page",
-                "result": "running",
-                "steps": Array [],
-              },
-              Object {
-                "id": 2,
-                "name": "verify text",
-                "result": "pending",
-                "steps": Array [],
-              },
-            ],
-          },
-          "type": "TEST_INFO",
-        },
-        "flush",
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 1,
-          },
-          "type": "STARTING_TEST",
+          "id": 1,
+          "name": "navigate to page",
+          "result": "running",
+          "steps": Array [],
         },
         Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "data": undefined,
-            "testId": 1,
-            "text": "Navigate to \\"http://localhost:6899\\"",
-          },
-          "type": "STEP",
+          "id": 2,
+          "name": "verify text",
+          "result": "pending",
+          "steps": Array [],
         },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 1,
-          },
-          "type": "TEST_PASS",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 2,
-          },
-          "type": "STARTING_TEST",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "data": undefined,
-            "testId": 2,
-            "text": "Expect \\"[data-test=\\"text\\"]\\" to contain \\"foo\\"",
-          },
-          "type": "STEP",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 2,
-          },
-          "type": "TEST_PASS",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "success": true,
-          },
-          "type": "RESULT",
-        },
-        "flush",
-      ]
-    `);
+      ],
+    },
+    "type": "TEST_INFO",
+  },
+  "flush",
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 1,
+    },
+    "type": "TEST_START",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "data": undefined,
+      "testId": 1,
+      "text": "Navigate to \\"http://localhost:6899\\"",
+    },
+    "type": "TEST_STEP",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 1,
+    },
+    "type": "TEST_PASS",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 2,
+    },
+    "type": "TEST_START",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "data": undefined,
+      "testId": 2,
+      "text": "Expect \\"[data-test=\\"text\\"]\\" to contain \\"foo\\"",
+    },
+    "type": "TEST_STEP",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 2,
+    },
+    "type": "TEST_PASS",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "success": true,
+    },
+    "type": "TEST_RESULT",
+  },
+  "flush",
+]
+`);
   });
 
   it('should fail', async () => {
@@ -162,100 +162,100 @@ describe('frontend single page', () => {
       notifier
     );
     expect(notifier.messages).toMatchInlineSnapshot(`
-      Array [
+Array [
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "tests": Array [
         Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "tests": Array [
-              Object {
-                "id": 1,
-                "name": "navigate to page",
-                "result": "running",
-                "steps": Array [],
-              },
-              Object {
-                "id": 2,
-                "name": "verify text",
-                "result": "pending",
-                "steps": Array [],
-              },
-            ],
-          },
-          "type": "TEST_INFO",
-        },
-        "flush",
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 1,
-          },
-          "type": "STARTING_TEST",
+          "id": 1,
+          "name": "navigate to page",
+          "result": "running",
+          "steps": Array [],
         },
         Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "data": undefined,
-            "testId": 1,
-            "text": "Navigate to \\"http://localhost:6899\\"",
-          },
-          "type": "STEP",
+          "id": 2,
+          "name": "verify text",
+          "result": "pending",
+          "steps": Array [],
         },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 1,
-          },
-          "type": "TEST_PASS",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "testId": 2,
-          },
-          "type": "STARTING_TEST",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "data": undefined,
-            "testId": 2,
-            "text": "Expect \\"[data-test=\\"text\\"]\\" to contain \\"foo\\"",
-          },
-          "type": "STEP",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "error": "Expected \\"[data-test=\\"text\\"]\\" to include \\"foo\\". Actual: \\"abc\\".",
-            "testId": 2,
-          },
-          "type": "TEST_FAIL",
-        },
-        Object {
-          "meta": Object {
-            "id": "mock",
-          },
-          "payload": Object {
-            "success": false,
-          },
-          "type": "RESULT",
-        },
-        "flush",
-      ]
-    `);
+      ],
+    },
+    "type": "TEST_INFO",
+  },
+  "flush",
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 1,
+    },
+    "type": "TEST_START",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "data": undefined,
+      "testId": 1,
+      "text": "Navigate to \\"http://localhost:6899\\"",
+    },
+    "type": "TEST_STEP",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 1,
+    },
+    "type": "TEST_PASS",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "testId": 2,
+    },
+    "type": "TEST_START",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "data": undefined,
+      "testId": 2,
+      "text": "Expect \\"[data-test=\\"text\\"]\\" to contain \\"foo\\"",
+    },
+    "type": "TEST_STEP",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "error": "Expected \\"[data-test=\\"text\\"]\\" to include \\"foo\\". Actual: \\"abc\\".",
+      "testId": 2,
+    },
+    "type": "TEST_FAIL",
+  },
+  Object {
+    "meta": Object {
+      "submissionId": "mock",
+    },
+    "payload": Object {
+      "success": false,
+    },
+    "type": "TEST_RESULT",
+  },
+  "flush",
+]
+`);
   });
 });

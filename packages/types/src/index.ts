@@ -18,30 +18,28 @@ export interface TestInfo {
   result: TestResult;
 }
 
-export type SocketMessage =
+export interface TesterSocketMessageMeta {
+  submissionId: string;
+}
+
+export type TesterSocketMessage =
   | {
       type: 'TEST_INFO';
-      meta: {
-        id: string;
-      };
+      meta: TesterSocketMessageMeta;
       payload: {
         tests: TestInfo[];
       };
     }
   | {
-      type: 'STARTING_TEST';
-      meta: {
-        id: string;
-      };
+      type: 'TEST_START';
+      meta: TesterSocketMessageMeta;
       payload: {
         testId: number;
       };
     }
   | {
       type: 'TEST_FAIL';
-      meta: {
-        id: string;
-      };
+      meta: TesterSocketMessageMeta;
       payload: {
         testId: number;
         error: string;
@@ -49,18 +47,14 @@ export type SocketMessage =
     }
   | {
       type: 'TEST_PASS';
-      meta: {
-        id: string;
-      };
+      meta: TesterSocketMessageMeta;
       payload: {
         testId: number;
       };
     }
   | {
-      type: 'STEP';
-      meta: {
-        id: string;
-      };
+      type: 'TEST_STEP';
+      meta: TesterSocketMessageMeta;
       payload: {
         testId: number;
         text: string;
@@ -68,10 +62,8 @@ export type SocketMessage =
       };
     }
   | {
-      type: 'RESULT';
-      meta: {
-        id: string;
-      };
+      type: 'TEST_RESULT';
+      meta: TesterSocketMessageMeta;
       payload: {
         success: boolean;
       };

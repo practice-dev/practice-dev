@@ -1,4 +1,4 @@
-import { SocketMessage } from '@pvd/types';
+import { TesterSocketMessage } from '@pvd/types';
 import { Tester } from './Tester';
 import { Page } from 'puppeteer';
 
@@ -13,7 +13,7 @@ export interface TestConfiguration {
 }
 
 export interface Notifier {
-  notify(action: SocketMessage): Promise<void>;
+  notify(action: TesterSocketMessage): Promise<void>;
   flush(): Promise<void>;
 }
 
