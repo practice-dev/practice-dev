@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unstable iframe</title>
+    <style>
+      #number {
+        display: inline-block;
+        border: 1px solid #333;
+        padding: 15px;
+      }
+      body {
+        padding: 15px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="number"></div>
+    <script type="text/javascript">
+      const number = Math.floor(Math.random() * 1000);
+      document.getElementById('number').textContent = number.toString();
+    </script>
+  </body>
+</html>
