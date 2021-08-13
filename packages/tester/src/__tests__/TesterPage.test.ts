@@ -536,3 +536,98 @@ describe('expectUrlToMatch', () => {
     );
   });
 });
+
+describe('expectCount', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <div data-test="group">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <span></spa>
+      </div>`;
+    });
+  });
+
+  it('should expect count properly', async () => {
+    await tester.expectCount('@group div', 4);
+    expect(notifier.actions).toEqual([
+      'Expect count of "[data-test="group"] div" to be 4',
+    ]);
+  });
+
+  it('should throw an error if invalid order', async () => {
+    await expect(tester.expectCount('@group div', 2)).rejects.toThrow(
+      'Expected count: 2. Actual: 4'
+    );
+  });
+});
+
+describe('expectAttribute', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <div data-test="node1" id="foo">
+      </div>`;
+    });
+  });
+
+  it('should expect attribute properly', async () => {
+    await tester.expectAttribute('@node1', 'id', 'foo');
+    expect(notifier.actions).toEqual([
+      'Expect "[data-test="node1"]" to have "id" attribute equal to "foo"',
+    ]);
+  });
+
+  it('should throw an error if invalid value', async () => {
+    await expect(tester.expectAttribute('@node1', 'id', 'bar')).rejects.toThrow(
+      'Expected value: bar. Actual: foo'
+    );
+  });
+
+  it('should throw an error if not found', async () => {
+    await expect(tester.expectAttribute('@node2', 'id', 'bar')).rejects.toThrow(
+      '"[data-test="node2"]" not found'
+    );
+  });
+});
+
+describe('getIframeElementContent', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <iframe data-test="iframe1" id="target">
+      </iframe> 
+      `;
+      const iframe = document.getElementById('target')! as HTMLIFrameElement;
+      var doc = iframe.contentWindow!.document;
+      doc.open();
+      doc.write(` <html>
+      <body>
+        <div id="test">foo</div>
+      </body>
+      </html>`);
+      doc.close();
+    });
+  });
+
+  it('should get content properly', async () => {
+    const content = await tester.getIframeElementContent('@iframe1', '#test');
+    expect(content).toBe('foo');
+    expect(notifier.actions).toEqual([]);
+  });
+
+  it('should throw iframe not found', async () => {
+    await expect(
+      tester.getIframeElementContent('@iframe2', '#test')
+    ).rejects.toThrow('"[data-test="iframe2"]" not found');
+  });
+
+  it('should throw iframe selector not found', async () => {
+    await expect(
+      tester.getIframeElementContent('@iframe1', '#abc')
+    ).rejects.toThrow('waiting for selector `#abc`');
+  });
+});

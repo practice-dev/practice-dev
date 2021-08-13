@@ -507,4 +507,94 @@ export class TesterPage {
       }, 10);
     });
   }
+
+  async expectCount(selector: string, count: number) {
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(`Expect count of "${input}" to be ${count}`);
+    const handle = await this.page.evaluateHandle(() => document);
+    try {
+      await this.page.waitForFunction(
+        (handle: any, input: any, count: any) => {
+          const elements = [...handle.querySelectorAll(input)];
+          return elements.length === count;
+        },
+        {
+          timeout: this.defaultTimeout,
+        },
+        handle,
+        input,
+        count
+      );
+    } catch (error) {
+      rethrowNonTimeout(error);
+      const actual = await this.page.evaluate(
+        (handle, input) => {
+          const elements = [...handle.querySelectorAll(input)];
+          return elements.length;
+        },
+        handle,
+        input
+      );
+
+      throw new TestError(`Expected count: ${count}. Actual: ${actual}`);
+    }
+  }
+
+  async expectAttribute(selector: string, name: string, value: string) {
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(
+      `Expect "${input}" to have "${name}" attribute equal to "${value}"`
+    );
+    const handle = await this.page.evaluateHandle(() => document);
+    try {
+      await this.page.waitForFunction(
+        (handle: any, input: any, name: any, value: any) => {
+          const element = handle.querySelector(input);
+          if (!element) {
+            return false;
+          }
+          return element.getAttribute(name) === value;
+        },
+        {
+          timeout: this.defaultTimeout,
+        },
+        handle,
+        input,
+        name,
+        value
+      );
+    } catch (error) {
+      rethrowNonTimeout(error);
+      const actual = await this.page.evaluate(
+        (handle, input, name) => {
+          const element = handle.querySelector(input);
+          return element ? element.getAttribute(name) : -1;
+        },
+        handle,
+        input,
+        name
+      );
+      if (actual === -1) {
+        throw new TestError(`"${input}" not found`);
+      }
+      throw new TestError(`Expected value: ${value}. Actual: ${actual}`);
+    }
+  }
+
+  async getIframeElementContent(iframeSelector: string, selector: string) {
+    const input = convertSelector(iframeSelector);
+    const elementHandle = await this.page.$(input);
+    if (!elementHandle) {
+      throw new TestError(`"${input}" not found`);
+    }
+    const frame = await elementHandle.contentFrame();
+    if (!frame) {
+      throw new TestError(`"${input}" no content frame`);
+    }
+    const handle = await frame.waitForSelector(selector, this.waitOptions);
+    const text = await frame.evaluate(handle => {
+      return handle.innerText.trim();
+    }, handle);
+    return text;
+  }
 }

@@ -239,13 +239,13 @@ export async function deployModule(options: DeployModuleOptions) {
   const s3Auth = await api.aws_getAwsUploadContentAuth();
   const s3Upload = new S3Upload(s3Auth);
   await _uploadChallenges(s3Upload, challenges);
+  await api.module_updateModule({
+    ...R.omit(moduleUpload, ['defaultLibraries']),
+    id: moduleId,
+  });
   await Promise.all(
     challenges.map(challenge =>
       api.challenge_updateChallenge(challenge.challenge)
     )
   );
-  await api.module_updateModule({
-    ...R.omit(moduleUpload, ['defaultLibraries']),
-    id: moduleId,
-  });
 }

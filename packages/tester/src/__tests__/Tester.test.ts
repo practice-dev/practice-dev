@@ -169,7 +169,7 @@ describe('common', () => {
     it('should assert correctly', async () => {
       await tester.expectEqual({ foo: 'name' }, { foo: 'name' }, 'user');
       expect(notifier.actions).toEqual([
-        'Expect "user" to equal "{"foo":"name"}"',
+        'Expect "user" to equal `{"foo":"name"}`',
       ]);
     });
 
@@ -177,7 +177,7 @@ describe('common', () => {
       await expect(
         tester.expectEqual({ foo: 'name' }, { foo: 'bar' }, 'user')
       ).rejects.toThrow(
-        'Expected "user" to equal "{"foo":"bar"}". Actual: "{"foo":"name"}".'
+        'Expected "user" to equal `{"foo":"bar"}`. Actual: `{"foo":"name"}`.'
       );
     });
   });

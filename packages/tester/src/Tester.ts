@@ -119,9 +119,9 @@ export class Tester {
           method: options.method,
           headers,
         },
-        (res) => {
+        res => {
           let body = '';
-          res.on('data', (chunk) => {
+          res.on('data', chunk => {
             body += chunk;
             if (body.length > maxBodyLength) {
               clearTimeout(timeoutId);
@@ -138,7 +138,7 @@ export class Tester {
       if (serializedBody) {
         req.write(serializedBody);
       }
-      req.on('error', (e) => {
+      req.on('error', e => {
         reject(new TestError('Cannot connect to server: ' + e.message));
       });
       req.end();
@@ -149,7 +149,7 @@ export class Tester {
           req.abort();
         } catch (ignore) {}
       }, defaultApiTimeout);
-    }).then(async (ret) => {
+    }).then(async ret => {
       await this.stepNotifier.notify(`Response from request ${id}`, {
         status: ret[1].statusCode,
         body: ret[0],
@@ -169,12 +169,14 @@ export class Tester {
 
   async expectEqual<T>(actual: T, expected: T, name: string) {
     const serialized = JSON.stringify(expected);
-    await this.stepNotifier.notify(`Expect "${name}" to equal "${serialized}"`);
+    await this.stepNotifier.notify(
+      `Expect "${name}" to equal \`${serialized}\``
+    );
     if (!R.equals(actual, expected)) {
       throw new TestError(
-        `Expected "${name}" to equal "${serialized}". Actual: "${JSON.stringify(
+        `Expected "${name}" to equal \`${serialized}\`. Actual: \`${JSON.stringify(
           actual
-        )}".`
+        )}\`.`
       );
     }
   }
@@ -200,5 +202,9 @@ export class Tester {
 
   async randomInt() {
     return crypto.randomBytes(4).readUInt32BE(0);
+  }
+
+  notify(text: string, data?: any) {
+    return this.stepNotifier.notify(text, data);
   }
 }
