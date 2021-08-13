@@ -628,6 +628,46 @@ describe('getIframeElementContent', () => {
   it('should throw iframe selector not found', async () => {
     await expect(
       tester.getIframeElementContent('@iframe1', '#abc')
-    ).rejects.toThrow('waiting for selector `#abc`');
+    ).rejects.toThrow('waiting for selector `#abc` failed');
+  });
+});
+
+describe('selectFileContent', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <input type="file" data-test="input1" id="target" />
+      <div data-test="result" id="result"></div>
+      <button data-test="btn">click</button>
+      `;
+      const input = document.getElementById('target')! as HTMLInputElement;
+      const result = document.getElementById('result')! as HTMLDivElement;
+      input.addEventListener('change', e => {
+        const file = input.files![0];
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+          result.innerText = reader.result as string;
+        });
+        reader.readAsText(file);
+      });
+    });
+  });
+
+  it('should get content properly', async () => {
+    await tester.selectFileContent('@input1', Buffer.from('foobar'));
+    expect(notifier.actions).toEqual(['Select file to "[data-test="input1"]"']);
+    await tester.expectToMatch('@result', 'foobar', true);
+  });
+
+  it('should throw file not selected', async () => {
+    await expect(
+      tester.selectFileContent('@btn', Buffer.from('foobar'))
+    ).rejects.toThrow('File chooser dialog not invoked');
+  });
+
+  it('should throw selector not found', async () => {
+    await expect(
+      tester.selectFileContent('@asd', Buffer.from('foobar'))
+    ).rejects.toThrow('waiting for selector `[data-test="asd"]` failed');
   });
 });

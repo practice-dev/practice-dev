@@ -1,4 +1,6 @@
+import fs from 'fs';
 import URL from 'url';
+import tmp from 'tmp';
 import {
   Page,
   WaitForSelectorOptions,
@@ -596,5 +598,28 @@ export class TesterPage {
       return handle.innerText.trim();
     }, handle);
     return text;
+  }
+
+  async selectFile(selector: string, path: string) {
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(`Select file to "${input}"`);
+    await this.page.waitForSelector(input, this.waitOptions);
+    const [fileChooser] = await Promise.all([
+      this.page.waitForFileChooser(this.waitOptions).catch(() => {
+        throw new TestError('File chooser dialog not invoked');
+      }),
+      this.page.click(input),
+    ]);
+    await fileChooser.accept([path]);
+  }
+
+  async selectFileContent(selector: string, buffer: Buffer) {
+    const tmpResult = tmp.fileSync();
+    try {
+      fs.writeFileSync(tmpResult.name, buffer);
+      await this.selectFile(selector, tmpResult.name);
+    } finally {
+      tmpResult.removeCallback();
+    }
   }
 }
