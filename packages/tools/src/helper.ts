@@ -42,15 +42,15 @@ export function findModuleDir(basedir: string, moduleId: number) {
 export function findChallengeDir(
   basedir: string,
   moduleId: number,
-  challengeId: number
+  challengeModuleId: number
 ) {
   const { moduleDirName, modulePath } = findModuleDir(basedir, moduleId);
   const challengeDirName = getValidChallengeRoots(modulePath).find(name => {
     const exec = /^\d+/.exec(name);
-    return exec && Number(exec[0]) === challengeId;
+    return exec && Number(exec[0]) === challengeModuleId;
   });
   if (!challengeDirName) {
-    throw new Error(`Challenge ${challengeId} for module ${moduleId}`);
+    throw new Error(`Challenge ${challengeModuleId} for module ${moduleId}`);
   }
   const challengePath = Path.join(modulePath, challengeDirName);
   return {

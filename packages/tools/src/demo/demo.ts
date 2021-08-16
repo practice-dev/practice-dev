@@ -16,7 +16,7 @@ const styledComponentsTransformer = createStyledComponentsTransformer({
 export interface BuildSourcesOptions {
   basedir: string;
   moduleId: number;
-  challengeId: number;
+  challengeModuleId: number;
 }
 
 function createEntry(basedir: string, componentPath: string) {
@@ -59,9 +59,13 @@ if (module.hot) {
 function createChallengeEntry(
   basedir: string,
   moduleId: number,
-  challengeId: number
+  challengeModuleId: number
 ) {
-  const { challengePath } = findChallengeDir(basedir, moduleId, challengeId);
+  const { challengePath } = findChallengeDir(
+    basedir,
+    moduleId,
+    challengeModuleId
+  );
 
   const componentPath = `./details/index`;
   const fullPath = Path.join(challengePath, componentPath + '.tsx');
@@ -72,7 +76,7 @@ function createChallengeEntry(
 }
 
 export async function demo(options: BuildSourcesOptions) {
-  const { basedir, moduleId, challengeId } = options;
+  const { basedir, moduleId, challengeModuleId: challengeId } = options;
   const { challengePath } = findChallengeDir(basedir, moduleId, challengeId);
   createChallengeEntry(basedir, moduleId, challengeId);
 

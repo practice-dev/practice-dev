@@ -49,7 +49,7 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
   const challengeRoots = getValidChallengeRoots(moduleDir);
 
   challengeRoots.map(challengeDirName => {
-    const challengeId = getNumberPrefix(challengeDirName);
+    const challengeModuleId = getNumberPrefix(challengeDirName);
     const challengeDir = Path.join(moduleDir, challengeDirName);
     const detailsPath = Path.join(challengeDir, 'details', 'index.tsx');
     const sourceDir = Path.join(challengeDir, 'source');
@@ -74,11 +74,11 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
     fs.writeFileSync(htmlFilePath, detailsHTML);
     const libraries = info.library ?? moduleUpload.defaultLibraries;
     if (!libraries) {
-      throw new Error('No libraries for: ' + challengeId);
+      throw new Error('No libraries for: ' + challengeModuleId);
     }
     challenges.push({
       challenge: {
-        challengeId: challengeId,
+        challengeModuleId: challengeModuleId,
         title: info.title,
         description: info.description,
         difficulty: info.difficulty,
@@ -106,7 +106,7 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
 }
 
 function _getChallengePrefix(challenge: UpdateChallengeValues) {
-  return `c_${challenge.moduleId}_${challenge.challengeId}`;
+  return `c_${challenge.moduleId}_${challenge.challengeModuleId}`;
 }
 
 async function _prepareFileUpload(

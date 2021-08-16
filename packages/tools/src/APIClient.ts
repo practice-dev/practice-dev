@@ -21,7 +21,7 @@ export class APIClient {
     return this.call('aws.getAwsUploadContentAuth', {});
   }
   challenge_updateChallenge(values: {
-    challengeId: number;
+    challengeModuleId: number;
     moduleId: number;
     title: string;
     description: string;

@@ -9,9 +9,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^25.2.3",
-    "jest": "^26.0.1",
-    "ts-jest": "^26.0.0",
-    "typescript": "^4.3.5"
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.4",
+    "typescript": "4.4.0-dev.20210806"
   }
 }
