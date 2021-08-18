@@ -43,7 +43,11 @@ function _getChallengeFiles(sourceDir: string, lockedFiles: string[]) {
   });
 }
 
-function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
+function _getChallengesInfo(
+  moduleSlug: string,
+  moduleUpload: ModuleUpload,
+  moduleDir: string
+) {
   const moduleId = getNumberPrefix(Path.basename(moduleDir));
   const challenges: ChallengeInfo[] = [];
   const challengeRoots = getValidChallengeRoots(moduleDir);
@@ -80,6 +84,8 @@ function _getChallengesInfo(moduleUpload: ModuleUpload, moduleDir: string) {
       challenge: {
         challengeModuleId: challengeModuleId,
         title: info.title,
+        slug:
+          moduleSlug + '/challenge/' + challengeDirName.replace(/^\d+\-/, ''),
         description: info.description,
         difficulty: info.difficulty,
         practiceTime: info.practiceTime,
@@ -228,11 +234,12 @@ interface DeployModuleOptions {
 
 export async function deployModule(options: DeployModuleOptions) {
   const { basedir, moduleId } = options;
-  const { modulePath } = findModuleDir(basedir, moduleId);
+  const { modulePath, moduleDirName } = findModuleDir(basedir, moduleId);
   const moduleUpload = require(Path.join(modulePath, 'info.ts'))
     .info as ModuleUpload;
   moduleUpload.id = moduleId;
-  const challenges = _getChallengesInfo(moduleUpload, modulePath);
+  const moduleSlug = moduleDirName.replace(/^\d+\-/, '');
+  const challenges = _getChallengesInfo(moduleSlug, moduleUpload, modulePath);
   await Promise.all(challenges.map(challenge => _populateTests(challenge)));
   await buildDetails(modulePath, challenges);
   await buildTests(modulePath, challenges);
@@ -241,6 +248,7 @@ export async function deployModule(options: DeployModuleOptions) {
   await _uploadChallenges(s3Upload, challenges);
   await api.module_updateModule({
     ...R.omit(moduleUpload, ['defaultLibraries']),
+    slug: moduleSlug,
     id: moduleId,
   });
   await Promise.all(

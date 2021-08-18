@@ -21,6 +21,7 @@ export class APIClient {
     return this.call('aws.getAwsUploadContentAuth', {});
   }
   challenge_updateChallenge(values: {
+    slug: string;
     challengeModuleId: number;
     moduleId: number;
     title: string;
@@ -44,11 +45,12 @@ export class APIClient {
   }
   module_updateModule(values: {
     id: number;
+    slug: string;
     title: string;
     description: string;
     difficulty: string;
-    mainTechnology: string;
     tags: string[];
+    mainTechnology: string;
   }): Promise<void> {
     return this.call('module.updateModule', { values });
   }
