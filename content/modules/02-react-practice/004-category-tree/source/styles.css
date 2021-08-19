@@ -1,0 +1,17 @@
+ul {
+  padding: 0;
+  list-style: none;
+  padding-left: 40px;
+}
+
+.root {
+  padding-left: 0;
+}
+
+.toggle {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  padding: 0;
+  line-height: 1;
+}
