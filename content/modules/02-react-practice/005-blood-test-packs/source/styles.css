@@ -1,0 +1,10 @@
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+input:hover,
+label:hover {
+  cursor: pointer;
+  color: purple;
+}
