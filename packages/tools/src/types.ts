@@ -10,6 +10,7 @@ export interface ModuleUpload {
   difficulty: Difficulty | 'various';
   tags: string[];
   defaultLibraries?: LibraryDefinition[];
+  isComingSoon?: boolean;
 }
 
 export interface ChallengeUpload {
