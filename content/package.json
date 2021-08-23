@@ -8,7 +8,7 @@
     "tsc": "tsc --noEmit",
     "test": "yarn run tsc",
     "deploy": "ts-node -T src/deploy",
-    "tst": "ts-node -T src/test"
+    "t": "ts-node -T src/test"
   },
   "dependencies": {
     "@pvd/tools": "*",
