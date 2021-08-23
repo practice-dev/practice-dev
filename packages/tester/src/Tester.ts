@@ -207,4 +207,9 @@ export class Tester {
   notify(text: string, data?: any) {
     return this.stepNotifier.notify(text, data);
   }
+
+  async wait(ms: number) {
+    await this.stepNotifier.notify(`Wait ${ms}ms.`);
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
