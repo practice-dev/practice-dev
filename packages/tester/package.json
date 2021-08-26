@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@pvd/types": "*",
+    "@types/jest": "^27.0.1",
     "chalk": "^4.1.2",
     "puppeteer": "^10.1.0",
     "remeda": "^0.0.30"

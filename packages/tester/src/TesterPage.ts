@@ -631,4 +631,26 @@ export class TesterPage {
         'appcache,cache_storage,cookies,indexeddb,local_storage,service_workers,websql',
     });
   }
+
+  async expectToBeFocused(selector: string) {
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(`Expect "${input}" to be focused`);
+    const handle = await this.page.evaluateHandle(() => document);
+    try {
+      await this.page.waitForFunction(
+        (handle: any, input: any) => {
+          const element = handle.querySelector(input);
+          return document.activeElement === element;
+        },
+        {
+          timeout: this.defaultTimeout,
+        },
+        handle,
+        input
+      );
+    } catch (error) {
+      rethrowNonTimeout(error);
+      throw new TestError(`Expected "${input}" to be focused`);
+    }
+  }
 }

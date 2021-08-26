@@ -671,3 +671,27 @@ describe('selectFileContent', () => {
     ).rejects.toThrow('waiting for selector `[data-test="asd"]` failed');
   });
 });
+
+describe('expectToBeFocused', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <input type="text" data-test="input1" autofocus  />
+      <input type="text" data-test="input2"   />
+      `;
+    });
+  });
+
+  it('should expect focused content properly', async () => {
+    await tester.expectToBeFocused('@input1');
+    expect(notifier.actions).toEqual([
+      'Expect "[data-test="input1"]" to be focused',
+    ]);
+  });
+
+  it('should throw file not selected', async () => {
+    await expect(tester.expectToBeFocused('@input2')).rejects.toThrow(
+      'Expected "[data-test="input2"]" to be focused'
+    );
+  });
+});
