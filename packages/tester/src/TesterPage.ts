@@ -622,4 +622,13 @@ export class TesterPage {
       tmpResult.removeCallback();
     }
   }
+
+  async clearData() {
+    await this.stepNotifier.notify(`Clear website data`);
+    await (this.page as any)._client.send('Storage.clearDataForOrigin', {
+      origin: this.page.url(),
+      storageTypes:
+        'appcache,cache_storage,cookies,indexeddb,local_storage,service_workers,websql',
+    });
+  }
 }
