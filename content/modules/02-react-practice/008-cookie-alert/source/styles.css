@@ -1,0 +1,38 @@
+.alert {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(17, 24, 39, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h3 {
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+button {
+  padding: 10px 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.success-btn {
+  background: #10b981;
+}
+
+.danger-btn {
+  background: #ef4444;
+}
