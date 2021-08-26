@@ -1,0 +1,24 @@
+.grid {
+  display: inline-grid;
+  grid-template-columns: 30px 150px 150px 150px;
+  grid-gap: 1px;
+  background: #999;
+  border: 1px solid #999;
+  color: #333;
+}
+
+.cell {
+  background: white;
+  text-align: left;
+  padding: 2px 5px;
+}
+
+.header {
+  text-align: center;
+  font-weight: bold;
+}
+
+.cell input {
+  border: none;
+  width: 100%;
+}
