@@ -1,0 +1,22 @@
+.grid {
+  display: inline-grid;
+  grid-template-columns: repeat(6, 40px);
+  grid-gap: 1px;
+  background: #999;
+  border: 1px solid #999;
+  color: #333;
+}
+
+.cell {
+  background: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  outline: 1px solid red;
+  background: #fca5a5;
+}
