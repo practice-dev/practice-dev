@@ -1,0 +1,12 @@
+.tags {
+  display: flex;
+  align-items: flex-start;
+}
+
+.tag {
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 4px;
+  background: #3b82f6;
+  color: white;
+}
