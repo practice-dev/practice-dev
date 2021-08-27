@@ -653,4 +653,45 @@ export class TesterPage {
       throw new TestError(`Expected "${input}" to be focused`);
     }
   }
+
+  async expectToHaveClass(selector: string, className: string) {
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(
+      `Expect "${input}" to have class "${className}"`
+    );
+    const handle = await this.page.evaluateHandle(() => document);
+    try {
+      await this.page.waitForFunction(
+        (handle: any, input: any, className: any) => {
+          const element = handle.querySelector(input);
+          if (!element) {
+            return false;
+          }
+          return element.classList.contains(className);
+        },
+        {
+          timeout: this.defaultTimeout,
+        },
+        handle,
+        input,
+        className
+      );
+    } catch (error) {
+      rethrowNonTimeout(error);
+      const actual = await this.page.evaluate(
+        (handle, input) => {
+          const element = handle.querySelector(input);
+          return element ? element.getAttribute('class') : -1;
+        },
+        handle,
+        input
+      );
+      if (actual === -1) {
+        throw new TestError(`"${input}" not found`);
+      }
+      throw new TestError(
+        `Expected class: "${className}". Actual: "${actual}"`
+      );
+    }
+  }
 }

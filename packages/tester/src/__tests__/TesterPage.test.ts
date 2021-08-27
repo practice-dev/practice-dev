@@ -695,3 +695,40 @@ describe('expectToBeFocused', () => {
     );
   });
 });
+
+describe('expectToHaveClass', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <div class="foo" data-test="div1"></div> 
+      <div class="foo bar" data-test="div2"></div> 
+      `;
+    });
+  });
+
+  it('should expect to have class properly', async () => {
+    await tester.expectToHaveClass('@div1', 'foo');
+    expect(notifier.actions).toEqual([
+      'Expect "[data-test="div1"]" to have class "foo"',
+    ]);
+  });
+
+  it('should expect to have class properly (many classes)', async () => {
+    await tester.expectToHaveClass('@div2', 'foo');
+    expect(notifier.actions).toEqual([
+      'Expect "[data-test="div2"]" to have class "foo"',
+    ]);
+  });
+
+  it('should throw no class', async () => {
+    await expect(tester.expectToHaveClass('@div1', 'bar')).rejects.toThrow(
+      'Expected class: "bar". Actual: "foo"'
+    );
+  });
+
+  it('should throw no class (many classes)', async () => {
+    await expect(tester.expectToHaveClass('@div2', 'abc')).rejects.toThrow(
+      'Expected class: "abc". Actual: "foo bar"'
+    );
+  });
+});
