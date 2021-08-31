@@ -181,6 +181,10 @@ export class Tester {
     }
   }
 
+  async fail(message: string) {
+    throw new TestError(message);
+  }
+
   async expectSchema<T extends Schema>(
     data: unknown,
     schema: T,
