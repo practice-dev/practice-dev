@@ -1,0 +1,37 @@
+.delete-btn {
+  margin-left: 5px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+}
+
+.modal-wrapper {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  background: white;
+  width: 400px;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+}
+
+.show {
+  display: block;
+}
+
+.modal .buttons button {
+  margin: 0 5px;
+}
