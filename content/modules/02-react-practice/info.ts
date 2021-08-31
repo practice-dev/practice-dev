@@ -2,8 +2,12 @@ import { ModuleUpload } from '@pvd/tools';
 
 export const info: ModuleUpload = {
   title: 'React Practice',
-  description:
-    'This a generic React module that contains various challenges using only React library. Recommended for users who know React basics.',
+  description: `This is a generic React module that contains various challenges using only React library.
+      <br />
+    Recommended for users who know React basics.
+    <br />
+      More challenges will be added to this module soon.
+    `,
   mainTechnology: 'react',
   difficulty: 'various',
   tags: [],
