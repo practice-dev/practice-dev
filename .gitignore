@@ -1,3 +1,6 @@
+content/deploy-stage.sh
+content/deploy-prod.sh
+
 # Logs
 logs
 dist/

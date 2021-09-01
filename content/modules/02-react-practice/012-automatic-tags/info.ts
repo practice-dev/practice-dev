@@ -2,7 +2,7 @@ import { ChallengeUpload } from '@pvd/tools';
 
 export const info: ChallengeUpload = {
   title: 'Automatic tags',
-  description: 'Creat an input that creates and deletes tags.',
+  description: 'Add or remove tags using only a keyboard.',
   difficulty: 'medium',
   practiceTime: 20,
   lockedFiles: ['index.tsx'],
