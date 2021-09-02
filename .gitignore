@@ -1,5 +1,4 @@
-content/deploy-stage.sh
-content/deploy-prod.sh
+content/deploy-*.sh
 
 # Logs
 logs

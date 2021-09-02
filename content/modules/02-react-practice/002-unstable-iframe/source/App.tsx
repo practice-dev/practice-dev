@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 
 export function App() {
   const [count, setCount] = React.useState<number>(0);
@@ -16,14 +17,7 @@ export function App() {
 
       <div data-test="iframes">
         {Array.from({ length: count }).map((_, i) => (
-          <iframe
-            width="100"
-            height="100"
-            frameBorder="0"
-            style={{ display: 'block' }}
-            key={i}
-            src="https://unstable-iframe.netlify.app"
-          />
+          <iframe key={i} src="https://unstable-iframe.netlify.app" />
         ))}
       </div>
     </div>
