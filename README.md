@@ -5,7 +5,6 @@ This is a monorepo for all public packages and challenges.
 ## Structure
 
 - `content` - contains all challenges
-- `projects` - contains all projects, and project challenges
 - `packages` - contains all shared packages
 - `packages/schema` - a custom library for validation
 - `packages/tester` - a tester library based on [Puppeteer](https://github.com/puppeteer/puppeteer)
@@ -19,50 +18,15 @@ This is a monorepo for all public packages and challenges.
 - ts-node (`npm i -g ts-node`)
 - yarn (run `yarn` in root directory)
 
-## Running challenge details locally
-
-### Challenge
-
-```
-  cd challenges
-  ts-node -T demo 1
-```
-
-Where `1` is the challenge id.
-There server will listed on `http://localhost:8011`.
-
-### Project challenge
-
-```
-  cd projects
-  ts-node -T demo 1 2
-```
-
-Where `1` is the project id.  
-Where `2` is the challenge id.  
-There server will listed on `http://localhost:8011`.
-
 ## Running tests locally
 
-### Challenge
-
 ```
-  cd challenges
-  ts-node -T test 1 http://localhost:3000
+  cd modules
+  ts-node -T test 2 1 http://localhost:3000
 ```
 
+Where `2` is the module id.  
 Where `1` is the challenge id.  
-Where `http://localhost:3000` is the url to test.
-
-### Project challenge
-
-```
-  cd projects
-  ts-node -T test 1 2 http://localhost:3000
-```
-
-Where `1` is the project id.  
-Where `2` is the challenge id.  
 Where `http://localhost:3000` is the url to test.
 
 ## LICENSE
