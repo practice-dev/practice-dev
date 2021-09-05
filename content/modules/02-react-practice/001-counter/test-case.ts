@@ -9,7 +9,7 @@ export default {
     });
 
     tester.test(
-      'Verify the count label and the decrease button are visible.',
+      'Verify the count label and the increase button are visible.',
       async () => {
         await tester.getPage().expectToBeVisible('@count');
         await tester.getPage().expectToBeVisible('@increase-btn');
