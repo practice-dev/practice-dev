@@ -118,10 +118,16 @@ export class TesterPage {
     });
   }
 
-  async expectToMatch(selector: string, expected: string, exact = false) {
+  async expectToMatch(
+    selector: string,
+    expected: string | number,
+    exact = false
+  ) {
     const input = convertSelector(selector);
+    const serialized =
+      typeof expected === 'number' ? `${expected}` : `"${expected}"`;
     await this.stepNotifier.notify(
-      `Expect "${input}" to ${exact ? 'equal' : 'contain'} "${expected}"`
+      `Expect "${input}" to ${exact ? 'equal' : 'contain'} ${serialized}`
     );
     await this.page.waitForSelector(input, this.waitOptions);
 

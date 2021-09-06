@@ -139,51 +139,73 @@ describe('expectToBeHidden', () => {
 });
 
 describe('expectToMatch', () => {
-  function addDiv() {
+  beforeEach(async () => {
     return page.evaluate(() => {
-      const div = document.createElement('div');
-      div.setAttribute('data-test', 'foo');
-      div.textContent = 'lorem';
-      document.body.appendChild(div);
+      document.body.innerHTML = `
+        <div data-test="foo">lorem</div> 
+        <div data-test="bar">lorem</div> 
+        <div data-test="bar">lorem</div> 
+        <input type="text" value="abc" data-test="input1" />
+        <input type="number" value="100" data-test="input2" />
+        <input type="number" value="" data-test="input3" />
+        `;
     });
-  }
+  });
   describe('partial', () => {
     it('should match properly', async () => {
-      await addDiv();
       await tester.expectToMatch('@foo', 'lor');
       expect(notifier.actions).toEqual([
         'Expect "[data-test="foo"]" to contain "lor"',
       ]);
     });
     it('should throw an error if does not match', async () => {
-      await addDiv();
       await expect(tester.expectToMatch('@foo', 'qwe')).rejects.toThrow(
         'Expected "[data-test="foo"]" to include "qwe". Actual: "lorem".'
       );
     });
     it('should throw an error if does not exist', async () => {
-      await expect(tester.expectToMatch('@foo', 'qwe')).rejects.toThrow(
-        'waiting for selector `[data-test="foo"]` failed'
+      await expect(tester.expectToMatch('@abc', 'qwe')).rejects.toThrow(
+        'waiting for selector `[data-test="abc"]` failed'
       );
     });
     it('should throw an error if multiple results', async () => {
-      await addDiv();
-      await addDiv();
-      await expect(tester.expectToMatch('@foo', 'qwe')).rejects.toThrow(
-        'Found 2 elements with selector "[data-test="foo"]". Expected only 1.'
+      await expect(tester.expectToMatch('@bar', 'qwe')).rejects.toThrow(
+        'Found 2 elements with selector "[data-test="bar"]". Expected only 1.'
       );
     });
   });
   describe('exact', () => {
     it('should match properly', async () => {
-      await addDiv();
       await tester.expectToMatch('@foo', 'lorem', true);
       expect(notifier.actions).toEqual([
         'Expect "[data-test="foo"]" to equal "lorem"',
       ]);
     });
+    it('should match properly (input)', async () => {
+      await tester.expectToMatch('@input1', 'abc', true);
+      expect(notifier.actions).toEqual([
+        'Expect "[data-test="input1"]" to equal "abc"',
+      ]);
+    });
+    it('should match properly (input number)', async () => {
+      await tester.expectToMatch('@input2', 100, true);
+      expect(notifier.actions).toEqual([
+        'Expect "[data-test="input2"]" to equal 100',
+      ]);
+    });
+    it('should match properly (input number as string)', async () => {
+      await tester.expectToMatch('@input2', '100', true);
+      expect(notifier.actions).toEqual([
+        'Expect "[data-test="input2"]" to equal "100"',
+      ]);
+    });
+    it('should match empty (input number)', async () => {
+      await tester.expectToMatch('@input3', '', true);
+      expect(notifier.actions).toEqual([
+        'Expect "[data-test="input3"]" to equal ""',
+      ]);
+    });
     it('should throw an error if does not match', async () => {
-      await addDiv();
       await expect(tester.expectToMatch('@foo', 'lor', true)).rejects.toThrow(
         'Expected "[data-test="foo"]" to equal "lor". Actual: "lorem".'
       );

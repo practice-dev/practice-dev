@@ -5,7 +5,7 @@ import http from 'http';
 export function checkHasSelectorMatches(
   document: Document,
   input: string,
-  text: string,
+  text: string | number,
   exact: boolean
 ) {
   const elements = document.querySelectorAll(input);
@@ -13,12 +13,28 @@ export function checkHasSelectorMatches(
     return false;
   }
   const element = elements[0];
-  const textContent: string =
+  const getInputValue = () => {
+    const input = element as HTMLInputElement;
+    if (input.getAttribute('type') === 'number') {
+      return input.valueAsNumber;
+    }
+    return input.value;
+  };
+  const textContent =
     element.tagName.toLowerCase() === 'input'
-      ? (element as HTMLInputElement).value
+      ? getInputValue()
       : element.tagName.toLowerCase() === 'select'
       ? (element as HTMLSelectElement).value
       : (element as HTMLDivElement).innerText || '';
+  if (typeof text === 'number') {
+    return text === Number(textContent);
+  }
+  if (typeof textContent === 'number') {
+    if (text === '' && isNaN(textContent)) {
+      return true;
+    }
+    return Number(text) === textContent;
+  }
   return exact ? textContent === text : textContent.includes(text);
 }
 
