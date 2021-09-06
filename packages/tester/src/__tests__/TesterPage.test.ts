@@ -732,3 +732,53 @@ describe('expectToHaveClass', () => {
     );
   });
 });
+
+describe('expectToBeChecked', () => {
+  beforeEach(async () => {
+    await page.evaluate(() => {
+      document.body.innerHTML = `
+      <div data-test="div1"></div> 
+      <input type="checkbox" checked  data-test="checkbox1" />
+      <input type="checkbox" data-test="checkbox2" />
+      `;
+    });
+  });
+
+  it('should expect to be checked', async () => {
+    await tester.expectToBeChecked('@checkbox1', true);
+    expect(notifier.actions).toEqual([
+      'Expect "[data-test="checkbox1"]" to be checked',
+    ]);
+  });
+
+  it('should expect to be unchecked', async () => {
+    await tester.expectToBeChecked('@checkbox2', false);
+    expect(notifier.actions).toEqual([
+      'Expect "[data-test="checkbox2"]" to be unchecked',
+    ]);
+  });
+
+  it('should throw still unchecked', async () => {
+    await expect(tester.expectToBeChecked('@checkbox1', false)).rejects.toThrow(
+      'Expected "[data-test="checkbox1"]" to be unchecked, but it\'s still checked.'
+    );
+  });
+
+  it('should throw still checked', async () => {
+    await expect(tester.expectToBeChecked('@checkbox2', true)).rejects.toThrow(
+      'Expected "[data-test="checkbox2"]" to be checked, but it\'s still unchecked.'
+    );
+  });
+
+  it('should throw if not a checkbox', async () => {
+    await expect(tester.expectToBeChecked('@div1', true)).rejects.toThrow(
+      'The selector \'[data-test="div1"]\' is not a checkbox.'
+    );
+  });
+
+  it('should throw if multiple', async () => {
+    await expect(tester.expectToBeChecked('input', true)).rejects.toThrow(
+      "Found 2 elements with selector 'input'. Expected only 1."
+    );
+  });
+});

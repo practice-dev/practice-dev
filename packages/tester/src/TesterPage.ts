@@ -694,4 +694,58 @@ export class TesterPage {
       );
     }
   }
+
+  async expectToBeChecked(selector: string, checked: boolean) {
+    const expected = checked ? 'checked' : 'unchecked';
+    const unexpected = !checked ? 'checked' : 'unchecked';
+    const input = convertSelector(selector);
+    await this.stepNotifier.notify(`Expect "${input}" to be ${expected}`);
+    await this.page.waitForSelector(input, this.waitOptions);
+    const handle = await this.page.evaluateHandle(() => document);
+    try {
+      await this.page.waitForFunction(
+        (handle: any, input: any, checked: any) => {
+          const elements = [...handle.querySelectorAll(input)];
+          if (elements.length !== 1) {
+            return null;
+          }
+          const element = elements[0];
+          return element.checked === checked;
+        },
+        {
+          timeout: this.defaultTimeout,
+        },
+        handle,
+        input,
+        checked
+      );
+    } catch (error) {
+      rethrowNonTimeout(error);
+      const actual = await this.page.evaluate(
+        (handle, input) => {
+          const elements = [...handle.querySelectorAll(input)];
+          if (elements.length !== 1) {
+            return { error: 'multiple', count: elements.length };
+          }
+          if (elements[0].checked == null) {
+            return { error: 'not-checkbox' };
+          }
+          return null;
+        },
+        handle,
+        input
+      );
+      if (actual?.error === 'multiple') {
+        throw new TestError(
+          `Found ${actual.count} elements with selector '${selector}'. Expected only 1.`
+        );
+      }
+      if (actual?.error === 'not-checkbox') {
+        throw new TestError(`The selector '${input}' is not a checkbox.`);
+      }
+      throw new TestError(
+        `Expected "${input}" to be ${expected}, but it's still ${unexpected}.`
+      );
+    }
+  }
 }
