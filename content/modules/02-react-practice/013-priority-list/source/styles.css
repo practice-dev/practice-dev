@@ -1,0 +1,17 @@
+.form {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.form input[type='text'],
+.form input[type='number'] {
+  width: 80px;
+  margin-right: 5px;
+}
+
+.form label {
+  margin-right: 5px;
+  display: inline-flex;
+  align-items: center;
+}
