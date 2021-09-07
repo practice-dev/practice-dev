@@ -1,0 +1,43 @@
+.lights {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lights li {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  margin: 0;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lights li.active {
+  background: #fbbf24;
+}
+
+.buttons {
+  width: 240px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.buttons button {
+  width: 25px;
+  height: 25px;
+  border-radius: 3px;
+  background: #1f2937;
+  color: white;
+  border: none;
+}
+
+.buttons button:hover {
+  background: #374151;
+  cursor: pointer;
+}
