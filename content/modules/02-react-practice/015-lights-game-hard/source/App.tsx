@@ -12,7 +12,7 @@ const toggleMap: Record<number, string[]> = {
 export function App() {
   return (
     <div>
-      <h2>Lights game - easy</h2>
+      <h2>Lights game - hard</h2>
       <ul className="lights">
         <li className="active" data-test="light">
           A
@@ -32,6 +32,9 @@ export function App() {
         <button data-test="toggle-btn">4</button>
         <button data-test="toggle-btn">5</button>
       </div>
+      <button data-test="suggest-btn" className="suggest-btn">
+        suggest
+      </button>
     </div>
   );
 }
