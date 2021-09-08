@@ -1,7 +1,7 @@
 import { ModuleUpload } from '@pvd/tools';
 
 export const info: ModuleUpload = {
-  title: 'React Basics',
+  title: 'React Tutorial',
   isComingSoon: true,
   description: `Learn React from basics step by step. No previous React experience is required.
     <br /> 
