@@ -38,6 +38,7 @@ export interface ChallengeInfo {
 export interface LibraryDefinition {
   name: string;
   types: string;
+  typesBundle: string;
   source: string;
 }
 
