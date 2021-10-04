@@ -6,8 +6,6 @@ export const info: ModuleUpload = {
   description: `Learn React from basics step by step. No previous React experience is required.
     <br /> 
     This module will be published soon!
-    <br />
-    If you are interested in creating it and earning royalties, please get in touch with us.
   `,
   mainTechnology: 'react',
   difficulty: 'beginner',

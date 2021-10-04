@@ -8,8 +8,6 @@ export const info: ModuleUpload = {
     @reduxjs/toolkit is the most popular state management library for React.
     <br /> 
     This module will be published soon!
-    <br />
-    If you are interested in creating it and earning royalties, please get in touch with us.
   `,
   mainTechnology: 'react',
   difficulty: 'beginner',
